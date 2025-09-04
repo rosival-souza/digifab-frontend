@@ -5,7 +5,7 @@
       </a>    
 </center>
 <center>
-       <h1 style="display: inline-block; margin-left: 10px;">DigiFab</h1>
+       <h1 style="display: inline-block; margin-left: 10px;">DigiFab - FrontEnd</h1>
 </center>
 </div>
 
@@ -24,7 +24,9 @@
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](public/homepage.png)
+<p align="left">
+  <img src="public/homepage.png" width="100"/>
+</p>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -61,7 +63,7 @@ Follow these steps to get your project up and running:
    ```
 3. **Install dependencies**
    ```sh
-   npm install -D typescript ts-node-dev @types/node @types/express
+   npm install -D typescript
    ```
    ```sh
    npm install
@@ -70,7 +72,7 @@ Follow these steps to get your project up and running:
    ```sh
    npm run dev
    ```
-   Open your web browser and navigate to http://localhost:3000/nickelfox-sales-management to view this application.
+   Open your web browser and navigate to http://localhost:3000/digifab to view this application.
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
