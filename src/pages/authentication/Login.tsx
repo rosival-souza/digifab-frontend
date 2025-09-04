@@ -14,24 +14,42 @@ import {
   FormControlLabel,
 } from '@mui/material';
 import IconifyIcon from 'components/base/IconifyIcon';
-import { useState, ReactElement } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, ReactElement, useEffect } from 'react';
+// import { useNavigate } from 'react-router-dom';
 import { rootPaths } from 'routes/paths';
 import Image from 'components/base/Image';
-// import logoWithText from '/Logo-with-text.png';
 import logoWithText from 'assets/images/logo/digifab.png';
+import { useAuth } from "../../routes/AuthContext";
 
 const Login = (): ReactElement => {
-  const navigate = useNavigate();
+
+  // const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [inputLogin, setInputLogin] = useState<string>('');
+  const [inputPassword, setInputPassword] = useState<string>('');
+  const { login, logout } = useAuth();
 
   const handleSubmit = () => {
-    navigate(`${rootPaths.homeRoot}/dashboard`);
+
+    console.log('inputlogin ->', inputLogin)
+
+    if (inputLogin === 'login@digifab.com' && inputPassword === '12345') { 
+      login("login@digifab.com", "12345"); 
+    }else {
+      alert('email ou senha incorretos!! (email: login@digifab.com, senha: 12345)')
+    }
+
   };
 
   const handleClickShowPassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
+
+  useEffect(()=>{
+    
+    logout()
+
+  },[])
 
   return (
     <>
@@ -60,6 +78,7 @@ const Login = (): ReactElement => {
             variant="filled"
             label="Email"
             type="email"
+            onChange={(e) => setInputLogin(e.target.value)}
             sx={{
               '.MuiFilledInput-root': {
                 bgcolor: 'grey.A100',
@@ -79,6 +98,7 @@ const Login = (): ReactElement => {
           <TextField
             variant="filled"
             label="Senha"
+            onChange={(e) => setInputPassword(e.target.value)}
             type={showPassword ? 'text' : 'password'}
             sx={{
               '.MuiFilledInput-root': {

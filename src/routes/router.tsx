@@ -5,6 +5,8 @@ import PageLoader from 'components/loading/PageLoader';
 import Splash from 'components/loading/Splash';
 import { rootPaths } from './paths';
 import paths from './paths';
+import { PrivateRoute } from "./PrivateRoute";
+import { AuthProvider } from "./AuthContext";
 
 const App = lazy<() => ReactElement>(() => import('App'));
 
@@ -24,7 +26,9 @@ const routes: RouteObject[] = [
   {
     element: (
       <Suspense fallback={<Splash />}>
-        <App />
+        <AuthProvider>
+          <App />
+        </AuthProvider>
       </Suspense>
     ),
     children: [
@@ -44,7 +48,11 @@ const routes: RouteObject[] = [
           },
           {
             path: 'dashboard',
-            element: <Dashboard />, // Dashboard fica protegido
+            element: (
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            ),
           },
         ],
       },
