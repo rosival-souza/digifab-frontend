@@ -22,7 +22,7 @@
 
 <!-- ABOUT THE PROJECT -->
 
-## About The Project
+## About The Project: Appeal Organization (Feature-based)
 
 <p align="left">
   <img src="public/homepage.png" width="500"/>
