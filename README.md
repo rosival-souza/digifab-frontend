@@ -9,7 +9,7 @@
 </center>
 </div>
 
-# Pós-Graduação em Engenharia de Software - Alunos Grupo (03) <br />
+# Pós-Graduação em Engenharia de Software - Alunos do Grupo <br />
  - Rosival de Souza <br />
  - Felipe Griep <br />
  - Giulia Mendes <br />
