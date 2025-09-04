@@ -59,7 +59,7 @@ Follow these steps to get your project up and running:
    ```
 2. **Navigate to the project directory**
    ```sh
-   cd digifab
+   cd digifab-frontend
    ```
 3. **Install dependencies**
    ```sh
