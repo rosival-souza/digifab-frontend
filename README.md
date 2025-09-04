@@ -25,7 +25,7 @@
 ## About The Project
 
 <p align="left">
-  <img src="public/homepage.png" width="100"/>
+  <img src="public/homepage.png" width="500"/>
 </p>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
