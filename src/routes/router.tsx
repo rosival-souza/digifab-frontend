@@ -1,6 +1,6 @@
 import { lazy, Suspense, ReactElement, PropsWithChildren } from 'react';
 import { Outlet, RouteObject, RouterProps, createBrowserRouter } from 'react-router-dom';
-
+import { Navigate } from "react-router-dom";
 import PageLoader from 'components/loading/PageLoader';
 import Splash from 'components/loading/Splash';
 import { rootPaths } from './paths';
@@ -40,7 +40,11 @@ const routes: RouteObject[] = [
         children: [
           {
             index: true,
-            element: <Dashboard />,
+            element: <Navigate to={paths.login} replace />,
+          },
+          {
+            path: 'dashboard',
+            element: <Dashboard />, // Dashboard fica protegido
           },
         ],
       },

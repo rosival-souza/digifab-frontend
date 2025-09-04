@@ -10,7 +10,7 @@
       </a>    
 </center>
 <center>
-       <h1 style="display: inline-block; margin-left: 10px;">Nickelfox Sales Management Dashboard</h1>
+       <h1 style="display: inline-block; margin-left: 10px;">DigiFab</h1>
 </center>
 </div>
 <br />
@@ -78,7 +78,7 @@ Follow these steps to get your project up and running:
    ```
 2. **Navigate to the project directory**
    ```sh
-   cd nickelfox-sales-management
+   cd digifab
    ```
 3. **Install dependencies**
    ```sh
@@ -100,11 +100,6 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<a name="readme-top">
-<div align="">
-<a align="center" href="https://github.com/themewagon/elegent/graphs/contributors">
-<img src="https://contrib.rocks/image?repo=themewagon/elegent" /><br />
-</a></a></div>
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->

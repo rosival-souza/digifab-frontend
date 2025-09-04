@@ -18,14 +18,15 @@ import { useState, ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { rootPaths } from 'routes/paths';
 import Image from 'components/base/Image';
-import logoWithText from '/Logo-with-text.png';
+// import logoWithText from '/Logo-with-text.png';
+import logoWithText from 'assets/images/logo/digifab.png';
 
 const Login = (): ReactElement => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const handleSubmit = () => {
-    navigate(rootPaths.homeRoot);
+    navigate(`${rootPaths.homeRoot}/dashboard`);
   };
 
   const handleClickShowPassword = () => {
@@ -36,7 +37,7 @@ const Login = (): ReactElement => {
     <>
       <Box component="figure" mb={5} mx="auto" textAlign="center">
         <Link href={rootPaths.homeRoot}>
-          <Image src={logoWithText} alt="logo with text" height={60} />
+          <Image src={logoWithText} alt="logo with text" height={200} />
         </Link>
       </Box>
       <Paper
@@ -47,10 +48,10 @@ const Login = (): ReactElement => {
       >
         <Stack justifyContent="center" gap={5}>
           <Typography variant="h3" textAlign="center" color="text.secondary">
-            Log In
+            Login
           </Typography>
           <Typography variant="h6" fontWeight={500} textAlign="center" color="text.primary">
-            Don’t have an account?{' '}
+            Não tem uma conta?{' '}
             <Link href="/authentication/sign-up" underline="none">
               Sign up
             </Link>
@@ -77,7 +78,7 @@ const Login = (): ReactElement => {
           />
           <TextField
             variant="filled"
-            label="Password"
+            label="Senha"
             type={showPassword ? 'text' : 'password'}
             sx={{
               '.MuiFilledInput-root': {
@@ -119,7 +120,7 @@ const Login = (): ReactElement => {
           <FormGroup sx={{ ml: 1, width: 'fit-content' }}>
             <FormControlLabel
               control={<Checkbox />}
-              label="Keep me signed in"
+              label="Manter logado"
               sx={{
                 color: 'text.secondary',
               }}
@@ -131,11 +132,11 @@ const Login = (): ReactElement => {
               fontWeight: 'fontWeightRegular',
             }}
           >
-            Log In
+            Logar
           </Button>
           <Divider />
           <Typography textAlign="center" color="text.secondary" variant="body1">
-            Or sign in using:
+            ou logar usando:
           </Typography>
           <Stack gap={1.5} direction="row" justifyContent="space-between">
             <Button
