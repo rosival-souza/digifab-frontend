@@ -1,51 +1,30 @@
-<a name="readme-top"></a>
-
-<!-- PROJECT LOGO -->
-<br />
-<!-- PROJECT LOGO -->
 <div align="left" >
 <center>
-      <a href="public/LOGO.png" align="center">
-        <img src="public/LOGO.png" alt="Logo" width="50" height="50">
+      <a href="./src/assets/images/logo/digifab.png" align="center">
+        <img src="./src/assets/images/logo/digifab.png" alt="Logo" width="150" height="150">
       </a>    
 </center>
 <center>
        <h1 style="display: inline-block; margin-left: 10px;">DigiFab</h1>
 </center>
 </div>
-<br />
 
-<br />
-<br />
-<!-- TABLE OF CONTENTS -->
-<details  align="left">
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>    
-    <li><a href="#license">License</a></li>    
-    <li><a href="#license">Acknowledgments</a></li>
-  </ol>
-</details>
-<br />
-<br />
+# Pós-Graduação em Engenharia de Software - Alunos Grupo (03) <br />
+ - Rosival de Souza <br />
+ - Felipe Griep <br />
+ - Giulia Mendes <br />
+ - Tiago Zardin <br />
+
+# Projeto e desenvolvimento de web-app
+<p align="left">
+  <img src="./src/assets/images/logo/unisinos.png" width="100"/>
+</p>
+
 <!-- ABOUT THE PROJECT -->
 
 ## About The Project
 
 [![Product Name Screen Shot][product-screenshot]](public/homepage.png)
-[![Product Name Screen Shot][product-screenshot-2]](public/homepage_2.png)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -74,13 +53,16 @@ Follow these steps to get your project up and running:
 
 1. **Clone the repository**
    ```sh
-   git clone https://github.com/themewagon/nickelfox-sales-management.git
+   git clone https://github.com/rosival-souza/digifab-frontend
    ```
 2. **Navigate to the project directory**
    ```sh
    cd digifab
    ```
 3. **Install dependencies**
+   ```sh
+   npm install -D typescript ts-node-dev @types/node @types/express
+   ```
    ```sh
    npm install
    ```
@@ -89,16 +71,6 @@ Follow these steps to get your project up and running:
    npm run dev
    ```
    Open your web browser and navigate to http://localhost:3000/nickelfox-sales-management to view this application.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- LICENSE -->
-
-## License
-
-Distributed under the MIT License. See `LICENSE.txt` for more information.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
