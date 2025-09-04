@@ -19,7 +19,7 @@ import { useState, ReactElement, useEffect } from 'react';
 import { rootPaths } from 'routes/paths';
 import Image from 'components/base/Image';
 import logoWithText from 'assets/images/logo/digifab.png';
-import { useAuth } from "../../routes/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 
 const Login = (): ReactElement => {
 

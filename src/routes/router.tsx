@@ -6,7 +6,7 @@ import Splash from 'components/loading/Splash';
 import { rootPaths } from './paths';
 import paths from './paths';
 import { PrivateRoute } from "./PrivateRoute";
-import { AuthProvider } from "./AuthContext";
+import { AuthProvider } from "../contexts/AuthContext";
 
 const App = lazy<() => ReactElement>(() => import('App'));
 
