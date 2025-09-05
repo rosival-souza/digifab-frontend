@@ -164,33 +164,27 @@ const Login = (): ReactElement => {
           </Typography>
 
           <Stack gap={1.5} direction="row" justifyContent="space-between">
-            <GoogleLogin
-              theme="filled_black"   // opções: outline | filled_blue | filled_black
-              size="large"      // opções: large | medium | small
-              shape="rectangular" // rectangular | pill | circle | square
-            onSuccess={(credentialResponse) => {
-              if (credentialResponse.credential) {
-                const userData: any = jwtDecode(credentialResponse.credential);
-                console.log("Google user ->", userData);
-                login(userData.email, credentialResponse.credential);
-              }
-            }}
-            onError={() => {
-              console.log("Erro no login com Google");
-            }}
-            />
-            <Button
-              startIcon={<IconifyIcon icon="logos:facebook" />}
-              variant="outlined"
-              fullWidth
-              sx={{
-                fontSize: "subtitle2.fontSize",
-                fontWeight: "fontWeightRegular",
-              }}
-            >
-              Facebook
-            </Button>
+            <Box sx={{ width: "100%"}}>
+              <GoogleLogin
+                theme="filled_black"   // opções: outline | filled_blue | filled_black
+                size="large"           // opções: large | medium | small
+                shape="rectangular"    // rectangular | pill | circle | square
+                width="100%"           // <-- deixa ele ocupar todo o espaço
+
+                onSuccess={(credentialResponse) => {
+                  if (credentialResponse.credential) {
+                    const userData: any = jwtDecode(credentialResponse.credential);
+                    console.log("Google user ->", userData);
+                    login(userData.email, credentialResponse.credential);
+                  }
+                }}
+                onError={() => {
+                  console.log("Erro no login com Google");
+                }}
+              />
+            </Box>
           </Stack>
+
 
           {/* <Stack gap={1.5} direction="row" justifyContent="space-between">
             <Button
