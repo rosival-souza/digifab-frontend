@@ -80,7 +80,7 @@ const Login = (): ReactElement => {
           </Typography>
           <TextField
             variant="filled"
-            label="Email"
+            label="E-Mail"
             type="email"
             onChange={(e) => setInputLogin(e.target.value)}
             sx={{

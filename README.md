@@ -23,22 +23,7 @@
 <!-- ABOUT THE PROJECT -->
 
 ## About The Project: Appeal Organization (Feature-based)
-...
-src/
-├── features/
-│   ├── dashboard/
-│   │   ├── components/
-│   │   ├── hooks/
-│   │   ├── types.ts
-│   │   └── index.ts
-│   ├── reports/
-│   └── profile/
-├── components/       ← Componentes compartilhados (UI genérica)
-├── hooks/            ← Hooks reutilizáveis
-├── services/         ← Serviços (API, abstrações)
-├── utils/            ← Funções utilitárias
-├── types/            ← Tipagens compartilhadas
-└── App.tsx / index.tsx
+
 
 ## Screens
 
