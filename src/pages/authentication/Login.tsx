@@ -21,9 +21,13 @@ import Image from 'components/base/Image';
 import logoWithText from 'assets/images/logo/digifab.png';
 import { useAuth } from "../../contexts/AuthContext";
 
+// Google Login
+import { GoogleLogin } from "@react-oauth/google";
+import { jwtDecode } from "jwt-decode";
+// Google Login
+
 const Login = (): ReactElement => {
 
-  // const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [inputLogin, setInputLogin] = useState<string>('');
   const [inputPassword, setInputPassword] = useState<string>('');
@@ -33,9 +37,9 @@ const Login = (): ReactElement => {
 
     console.log('inputlogin ->', inputLogin)
 
-    if (inputLogin === 'login@digifab.com' && inputPassword === '12345') { 
-      login("login@digifab.com", "12345"); 
-    }else {
+    if (inputLogin === 'login@digifab.com' && inputPassword === '12345') {
+      login("login@digifab.com", "12345");
+    } else {
       alert('email ou senha incorretos!! (email: login@digifab.com, senha: 12345)')
     }
 
@@ -45,11 +49,11 @@ const Login = (): ReactElement => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
 
-  useEffect(()=>{
-    
+  useEffect(() => {
+
     logout()
 
-  },[])
+  }, [])
 
   return (
     <>
@@ -158,7 +162,37 @@ const Login = (): ReactElement => {
           <Typography textAlign="center" color="text.secondary" variant="body1">
             ou logar usando:
           </Typography>
+
           <Stack gap={1.5} direction="row" justifyContent="space-between">
+            <GoogleLogin
+              theme="filled_black"   // opções: outline | filled_blue | filled_black
+              size="large"      // opções: large | medium | small
+              shape="rectangular" // rectangular | pill | circle | square
+            onSuccess={(credentialResponse) => {
+              if (credentialResponse.credential) {
+                const userData: any = jwtDecode(credentialResponse.credential);
+                console.log("Google user ->", userData);
+                login(userData.email, credentialResponse.credential);
+              }
+            }}
+            onError={() => {
+              console.log("Erro no login com Google");
+            }}
+            />
+            <Button
+              startIcon={<IconifyIcon icon="logos:facebook" />}
+              variant="outlined"
+              fullWidth
+              sx={{
+                fontSize: "subtitle2.fontSize",
+                fontWeight: "fontWeightRegular",
+              }}
+            >
+              Facebook
+            </Button>
+          </Stack>
+
+          {/* <Stack gap={1.5} direction="row" justifyContent="space-between">
             <Button
               startIcon={<IconifyIcon icon="flat-color-icons:google" />}
               variant="outlined"
@@ -181,7 +215,8 @@ const Login = (): ReactElement => {
             >
               Facebook
             </Button>
-          </Stack>
+          </Stack> */}
+
         </Stack>
       </Paper>
     </>
