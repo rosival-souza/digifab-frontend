@@ -9,6 +9,4 @@ const App = (): ReactElement => {
     </GoogleOAuthProvider>
   );
 };
-// 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
-// http://999996956231-8i7k5dl9pjoqq1namq32cur92v0vhci6.apps.googleusercontent.com
 export default App;
