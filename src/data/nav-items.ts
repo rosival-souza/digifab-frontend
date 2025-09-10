@@ -37,10 +37,10 @@ const navItems: NavItem[] = [
   },
   {
     id: 5,
-    path: '#!',
-    title: 'Product',
+    path: 'register/product',
+    title: 'Produto',
     icon: 'lets-icons:bag-alt-light',
-    active: false,
+    active: true,
   },
   {
     id: 6,

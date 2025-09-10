@@ -5,8 +5,8 @@ import SimpleBar from 'simplebar-react';
 import NavItem from './NavItem';
 import { drawerCloseWidth, drawerOpenWidth } from '..';
 import Image from 'components/base/Image';
-import logoWithText from '/Logo-with-text.png';
-import logo from '/LOGO.png';
+import logoWithText from 'assets/images/logo/digifab.png';
+import logo from 'assets/images/logo/digifab.png';
 import { rootPaths } from 'routes/paths';
 
 const Sidebar = ({ open }: { open: boolean }): ReactElement => {
@@ -32,7 +32,7 @@ const Sidebar = ({ open }: { open: boolean }): ReactElement => {
           <Image
             src={open ? logoWithText : logo}
             alt={open ? 'logo with text' : 'logo'}
-            height={40}
+            height={60}
           />
         </Link>
       </Toolbar>
