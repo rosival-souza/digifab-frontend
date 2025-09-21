@@ -17,16 +17,16 @@ const TopProducts = (): ReactElement => {
   return (
     <Paper sx={{ p: { xs: 4, sm: 8 }, height: 1 }}>
       <Typography variant="h4" color="common.white" mb={6}>
-        Top Products
+        Tipos de Produtos
       </Typography>
       <TableContainer component={SimpleBar}>
         <Table sx={{ minWidth: 440 }}>
           <TableHead>
             <TableRow>
               <TableCell align="left">#</TableCell>
-              <TableCell align="left">Name</TableCell>
-              <TableCell align="left">Popularity</TableCell>
-              <TableCell align="center">Sales</TableCell>
+              <TableCell align="left">Nome</TableCell>
+              <TableCell align="left">Popularidade</TableCell>
+              <TableCell align="center">Vendas</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

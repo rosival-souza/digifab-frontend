@@ -24,7 +24,7 @@ const Sidebar = ({ open }: { open: boolean }): ReactElement => {
         }}
       >
         <Link
-          href={rootPaths.homeRoot}
+          href={rootPaths.dashboard}
           sx={{
             mt: 3,
           }}

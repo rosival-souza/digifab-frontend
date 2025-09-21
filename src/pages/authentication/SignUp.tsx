@@ -15,7 +15,7 @@ import { useState, ReactElement } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { rootPaths } from 'routes/paths';
 import Image from 'components/base/Image';
-import logoWithText from '/Logo-with-text.png';
+import logoWithText from 'assets/images/logo/digifab.png';
 
 const SignUp = (): ReactElement => {
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ const SignUp = (): ReactElement => {
     <>
       <Box component="figure" mb={5} mx="auto" textAlign="center">
         <Link href={rootPaths.homeRoot}>
-          <Image src={logoWithText} alt="logo with text" height={60} />
+          <Image src={logoWithText} alt="logo with text" height={100} />
         </Link>
       </Box>
       <Paper
@@ -48,17 +48,17 @@ const SignUp = (): ReactElement => {
       >
         <Stack justifyContent="center" gap={5}>
           <Typography variant="h3" textAlign="center" color="text.secondary">
-            Create New Account
+            Criar uma conta
           </Typography>
           <Typography variant="h6" fontWeight={500} textAlign="center" color="text.primary">
-            Have an account?{' '}
+            Tem uma conta?{' '}
             <Link href="/authentication/login" underline="none">
               Log In
             </Link>
           </Typography>
           <TextField
             variant="filled"
-            label="Name"
+            label="Nome"
             type="text"
             sx={{
               '.MuiFilledInput-root': {
@@ -78,7 +78,7 @@ const SignUp = (): ReactElement => {
           />
           <TextField
             variant="filled"
-            label="Email"
+            label="E-Mail"
             type="email"
             sx={{
               '.MuiFilledInput-root': {
@@ -98,7 +98,7 @@ const SignUp = (): ReactElement => {
           />
           <TextField
             variant="filled"
-            label="Password"
+            label="Senha"
             type={showPassword ? 'text' : 'password'}
             sx={{
               '.MuiFilledInput-root': {
@@ -139,7 +139,7 @@ const SignUp = (): ReactElement => {
           />
           <TextField
             variant="filled"
-            label="Confirm Password"
+            label="Confirme a Senha"
             type={showConfirmPassword ? 'text' : 'password'}
             sx={{
               '.MuiFilledInput-root': {
@@ -187,40 +187,7 @@ const SignUp = (): ReactElement => {
           >
             Sign Up
           </Button>
-          <Typography variant="body1" textAlign="center">
-            By creating account, you agree to our{' '}
-            <Link href="#!" underline="none">
-              Terms of Service
-            </Link>
-          </Typography>
           <Divider />
-          <Typography textAlign="center" color="text.secondary" variant="body1">
-            Or sign in using:
-          </Typography>
-          <Stack gap={1.5} direction="row" justifyContent="space-between">
-            <Button
-              startIcon={<IconifyIcon icon="flat-color-icons:google" />}
-              variant="outlined"
-              fullWidth
-              sx={{
-                fontSize: 'subtitle2.fontSize',
-                fontWeight: 'fontWeightRegular',
-              }}
-            >
-              Google
-            </Button>
-            <Button
-              startIcon={<IconifyIcon icon="logos:facebook" />}
-              variant="outlined"
-              fullWidth
-              sx={{
-                fontSize: 'subtitle2.fontSize',
-                fontWeight: 'fontWeightRegular',
-              }}
-            >
-              Facebook
-            </Button>
-          </Stack>
         </Stack>
       </Paper>
     </>

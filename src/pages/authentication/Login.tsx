@@ -59,7 +59,7 @@ const Login = (): ReactElement => {
     <>
       <Box component="figure" mb={5} mx="auto" textAlign="center">
         <Link href={rootPaths.homeRoot}>
-          <Image src={logoWithText} alt="logo with text" height={200} />
+          <Image src={logoWithText} alt="logo with text" height={100} />
         </Link>
       </Box>
       <Paper
