@@ -32,7 +32,7 @@ const userMenuItems: UserMenuItem[] = [
   },
   {
     id: 5,
-    title: 'Help Center',
+    title: 'Help Center-',
     icon: 'material-symbols:live-help',
     color: 'text.primary',
   },

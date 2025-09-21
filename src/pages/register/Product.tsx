@@ -12,10 +12,6 @@ import {
 } from '@mui/material';
 // import IconifyIcon from 'components/base/IconifyIcon';
 import { useState, ReactElement } from 'react';
-import { useNavigate } from 'react-router-dom';
-
-// import Image from 'components/base/Image';
-// import logoWithText from 'assets/images/logo/digifab.png';
 
 const App = (): ReactElement => {
   // const navigate = useNavigate();
@@ -123,7 +119,7 @@ const App = (): ReactElement => {
           value={form.email}
           onChange={handleChange}
           variant="filled"
-          label="Email"
+          label="E-Mail"
           type="email"
         />
 

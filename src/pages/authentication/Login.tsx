@@ -15,7 +15,6 @@ import {
 } from '@mui/material';
 import IconifyIcon from 'components/base/IconifyIcon';
 import { useState, ReactElement, useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
 import { rootPaths } from 'routes/paths';
 import Image from 'components/base/Image';
 import logoWithText from 'assets/images/logo/digifab.png';
@@ -82,6 +81,7 @@ const Login = (): ReactElement => {
             variant="filled"
             label="E-Mail"
             type="email"
+           
             onChange={(e) => setInputLogin(e.target.value)}
             sx={{
               '.MuiFilledInput-root': {
@@ -141,15 +141,6 @@ const Login = (): ReactElement => {
               ),
             }}
           />
-          <FormGroup sx={{ ml: 1, width: 'fit-content' }}>
-            <FormControlLabel
-              control={<Checkbox />}
-              label="Manter logado"
-              sx={{
-                color: 'text.secondary',
-              }}
-            />
-          </FormGroup>
           <Button
             onClick={handleSubmit}
             sx={{
