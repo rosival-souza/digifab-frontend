@@ -1,35 +1,36 @@
 import { LinearProgressProps } from '@mui/material';
 
 export interface ProductItem {
-  id?: string;
-  name: string;
+
+  CODIGO_PRODUTO: string;
+  NOME_PRODUTO: string;
+  TOTAL_PLANEJADO: String;
   color: LinearProgressProps['color'];
-  sales: number;
 }
 
 export const productTableRows: ProductItem[] = [
   {
-    id: '01',
-    name: 'TAMPA 28MM PEAD',
+    CODIGO_PRODUTO: "---",
+    NOME_PRODUTO: "TAMPA 28MM PEAD",
+    TOTAL_PLANEJADO: "10000",
     color: 'warning',
-    sales: 78,
   },
   {
-    id: '02',
-    name: 'GARRAFA PET 500ML',
+    CODIGO_PRODUTO: "---",
+    NOME_PRODUTO: "ROTULO BOPP 500ML",
+    TOTAL_PLANEJADO: "8000",
     color: 'primary',
-    sales: 62,
   },
   {
-    id: '03',
-    name: 'ROTULO BOPP 500ML',
+    CODIGO_PRODUTO: "---",
+    NOME_PRODUTO: "GARRAFA PET 500ML",
+    TOTAL_PLANEJADO: "5000",
     color: 'info',
-    sales: 51,
   },
   {
-    id: '04',
-    name: 'POTE PEAD 1L',
+    CODIGO_PRODUTO: "---",
+    NOME_PRODUTO: "POTE PEAD 1L",
+    TOTAL_PLANEJADO: "2000",
     color: 'secondary',
-    sales: 29,
-  },
+  }
 ];

@@ -15,7 +15,7 @@ const ProductItemRow = ({ productItem }: { productItem: ProductItem }): ReactEle
           fontSize: 'body1.fontSize',
         }}
       >
-        {productItem.id}
+        {productItem.CODIGO_PRODUTO}
       </TableCell>
       <TableCell
         align="left"
@@ -23,13 +23,13 @@ const ProductItemRow = ({ productItem }: { productItem: ProductItem }): ReactEle
           whiteSpace: 'nowrap',
         }}
       >
-        {productItem.name}
+        {productItem.NOME_PRODUTO}
       </TableCell>
       <TableCell align="left">
         <LinearProgress
           variant="determinate"
-          color={productItem.color}
-          value={productItem.sales}
+          color='warning'
+          value={Number(productItem.TOTAL_PLANEJADO)}
           sx={{
             bgcolor: 'grey.900',
           }}
@@ -37,8 +37,8 @@ const ProductItemRow = ({ productItem }: { productItem: ProductItem }): ReactEle
       </TableCell>
       <TableCell align="center">
         <Chip
-          label={`${productItem.sales}%`}
-          color={productItem.color as any}
+          label={`${productItem.TOTAL_PLANEJADO}`}
+          color='warning'
           variant="outlined"
           size="medium"
         />
