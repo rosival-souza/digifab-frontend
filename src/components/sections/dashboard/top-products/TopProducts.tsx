@@ -28,8 +28,9 @@ const TopProducts = (): ReactElement => {
 
       const data = await response.json();
       console.log('response', data);
-
-      setProductTableRows(data)
+      if (data.length > 0) {
+        setProductTableRows(data)
+      }
 
     } catch (error) {
       console.error(error);

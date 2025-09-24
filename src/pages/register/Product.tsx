@@ -16,11 +16,12 @@ import { useState, ReactElement } from 'react';
 const App = (): ReactElement => {
   // const navigate = useNavigate();
   const [form, setForm] = useState({
-    nome: '',
-    tipo: '',
-    quantidade: '',
-    valor: '',
-    email: '',
+    codigo: "OP-TESTE-010",
+    idLoteProduto: 1,
+    idLinhaProducao: 1,
+    idResponsavel: 4,
+    quantidadeProduzir: 5,
+    dataHoraInicio: "2025-09-24"
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,6 +31,9 @@ const App = (): ReactElement => {
     });
   };
   const getHealths = async () => {
+
+
+
     try {
       const response = await fetch('http://localhost:4000/api/healths', {
         method: 'GET',
@@ -50,8 +54,11 @@ const App = (): ReactElement => {
     }
   };
   const handleSubmit = async () => {
+
+    console.log(form)
+
     try {
-      const response = await fetch('http://localhost:4000/api/healths', {
+      const response = await fetch('http://localhost:4000/api/order-production', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -79,52 +86,61 @@ const App = (): ReactElement => {
     <Paper sx={{ py: 6, px: { xs: 5, sm: 7.5 } }}>
       <Stack justifyContent="center" gap={5}>
         <Typography variant="h3" textAlign="center" color="text.secondary">
-          Registro de Produto
+          Registro de Ordens de Produção
         </Typography>
 
         <TextField
-          name="nome"
-          value={form.nome}
+          name="codigo"
+          value={form.codigo}
           onChange={handleChange}
           variant="filled"
-          label="Nome"
+          label="Código"
           type="text"
         />
         <TextField
-          name="tipo"
-          value={form.tipo}
+          name="idLoteProduto"
+          value={form.idLoteProduto}
           onChange={handleChange}
           variant="filled"
-          label="Tipo"
-          type="text"
-        />
-        <TextField
-          name="quantidade"
-          value={form.quantidade}
-          onChange={handleChange}
-          variant="filled"
-          label="Quantidade"
+          label="ID Lote Produto"
           type="number"
         />
         <TextField
-          name="valor"
-          value={form.valor}
+          name="idLinhaProducao"
+          value={form.idLinhaProducao}
           onChange={handleChange}
           variant="filled"
-          label="Valor"
+          label="ID Linha Produção"
           type="number"
         />
         <TextField
-          name="email"
-          value={form.email}
+          name="idResponsavel"
+          value={form.idResponsavel}
           onChange={handleChange}
           variant="filled"
-          label="E-Mail"
-          type="email"
+          label="ID Responsável"
+          type="number"
+        />
+        <TextField
+          name="quantidadeProduzir"
+          value={form.quantidadeProduzir}
+          onChange={handleChange}
+          variant="filled"
+          label="Quantidade Produzir"
+          type="number"
+        />
+
+         <TextField
+          name="data Inicio"
+          value={form.dataHoraInicio}
+          onChange={handleChange}
+          variant="filled"
+          label="Data Inicio"
+          type="date"
         />
 
         <Button
-          onClick={getHealths}
+          onClick={handleSubmit}
           sx={{ fontWeight: 'fontWeightRegular' }}
         >
           Cadastrar
