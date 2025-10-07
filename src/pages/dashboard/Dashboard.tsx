@@ -3,7 +3,7 @@ import { Box, Paper, Stack, Typography } from '@mui/material';
 
 // import CustomerFulfillment from 'components/sections/dashboard/customer-fulfilment/CustomerFulfillment';
 // import VisitorInsights from 'components/sections/dashboard/visitor-insights/VisitorInsights';
-import TodaysSales from 'components/sections/dashboard/todays-sales/TodaysSales';
+// import TodaysSales from 'components/sections/dashboard/todays-sales/TodaysSales';
 import TopProducts from 'components/sections/dashboard/top-products/TopProducts';
 // import Earnings from 'components/sections/dashboard/earnings/Earnings';
 // import Level from 'components/sections/dashboard/level/Level';
@@ -12,7 +12,6 @@ import totalSales from 'assets/images/todays-sales/total-sales.png';
 import totalOrder from 'assets/images/todays-sales/total-order.png';
 import productSold from 'assets/images/todays-sales/product-sold.png';
 import newCustomer from 'assets/images/todays-sales/new-customer.png';
-
 export interface SaleItem {
   id?: number;
   icon?: string;
@@ -22,26 +21,26 @@ export interface SaleItem {
   color: string;
 }
 
-const salesData: SaleItem[] = [
-  {
-    id: 1,
-    icon: totalSales,
-    title: '$5k',
-    subtitle: 'Total Vendas',
-    increment: 10,
-    color: 'warning.main',
-  },
-  {
-    id: 3,
-    icon: productSold,
-    title: '9',
-    subtitle: 'Produtos Vendidos',
-    increment: 2,
-    color: 'secondary.main',
-  },
-];
-
 const Dashboard = (): ReactElement => {
+
+  const [dataPlannedUnits, setPlannedUnits] = useState<any>([
+    {
+      id: 1,
+      icon: totalSales,
+      title: '10000',
+      subtitle: 'UN. Planejadas',
+      increment: 10,
+      color: 'warning.main',
+    },
+    {
+      id: 3,
+      icon: productSold,
+      title: '9',
+      subtitle: 'Produtos Vendidos',
+      increment: 2,
+      color: 'secondary.main',
+    },
+  ])
 
   const [dataOrders, setDataOrders] = useState<any>([
     {
@@ -64,6 +63,35 @@ const Dashboard = (): ReactElement => {
       color: 'info.main',
     },
   ])
+
+  const getPlannedUnits = async () => {
+
+    try {
+      const response = await fetch(
+        'http://localhost:4000/api/dashboard/kpis/planned-units',
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      const data = await response.json();
+      console.log('getPlannedUnits', data);
+
+      setPlannedUnits((prev: any) =>
+        prev.map((item: any) =>
+          item.id === 1 ? { ...item, title: String(data.dados) } : item
+        )
+      );
+
+
+    } catch (error) {
+      console.error(error);
+      alert('error');
+    }
+  };
 
   const getOrders = async () => {
     try {
@@ -91,7 +119,7 @@ const Dashboard = (): ReactElement => {
     }
   };
 
-   const getUsers = async () => {
+  const getUsers = async () => {
     try {
       const response = await fetch(
         'http://localhost:4000/api/dashboard/kpis/orders-count',
@@ -121,6 +149,7 @@ const Dashboard = (): ReactElement => {
 
     getOrders()
     getUsers()
+    getPlannedUnits()
 
   }, [])
 
@@ -137,7 +166,7 @@ const Dashboard = (): ReactElement => {
               Tipos
             </Typography>
             <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={{ xs: 4, sm: 6 }}>
-              {salesData.map((saleItem) => (
+              {dataPlannedUnits.map((saleItem: any) => (
                 <Box key={saleItem.id} gridColumn={{ xs: 'span 12', sm: 'span 6', lg: 'span 3' }}>
                   {/* <SaleCard saleItem={saleItem} /> */}
                   <Stack gap={6} p={5} borderRadius={4} height={1} bgcolor="background.default">
@@ -211,12 +240,12 @@ const Dashboard = (): ReactElement => {
         >
           <CustomerFulfillment />
         </Box> */}
-        {/* <Box
+        <Box
           gridColumn={{ xs: 'span 12', md: 'span 6', xl: 'span 4' }}
           order={{ xs: 4, xl: 5, '2xl': 4 }}
         >
-          <Earnings />
-        </Box> */}
+          {/* <Earnings /> */}
+        </Box>
         {/* <Box gridColumn={{ xs: 'span 12', xl: 'span 8' }} order={{ xs: 5, xl: 4, '2xl': 5 }}>
           <VisitorInsights />
         </Box> */}

@@ -1,12 +1,38 @@
 import { Box, Paper, Typography } from '@mui/material';
 import EarningsChart from './EarningsChart';
-import { ReactElement, useEffect, useRef } from 'react';
+import { ReactElement, useEffect, useRef, useState } from 'react';
 import EChartsReactCore from 'echarts-for-react/lib/core';
-import { currencyFormat } from 'helpers/format-functions';
+// import { currencyFormat } from 'helpers/format-functions';
 
 const Earnings = (): ReactElement => {
   const chartRef = useRef<EChartsReactCore | null>(null);
 
+  const [data, setData] = useState<any>(0)
+
+  const getData = async () => {
+    try {
+      const response = await fetch(
+        'http://localhost:4000/api/dashboard/kpis/line-utilization-simple-average',
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      const data = await response.json();
+      console.log('response', data.dados);
+      setData(data.dados)
+
+    } catch (error) {
+      console.error(error);
+      alert('error');
+    }
+  };
+  useEffect(()=>{
+    getData()
+  },[])
   useEffect(() => {
     const handleResize = () => {
       if (chartRef.current) {
@@ -23,22 +49,22 @@ const Earnings = (): ReactElement => {
   return (
     <Paper sx={{ p: { xs: 4, sm: 8 }, height: 1 }}>
       <Typography variant="h4" color="common.white" mb={2.5}>
-        Earnings
+        Utilização de média Ponderada
       </Typography>
-      <Typography variant="body1" color="text.primary" mb={4.5}>
+      {/* <Typography variant="body1" color="text.primary" mb={4.5}>
         Total Expense
-      </Typography>
+      </Typography> */}
       <Typography
         variant="h1"
         color="primary.main"
         mb={4.5}
         fontSize={{ xs: 'h2.fontSize', sm: 'h1.fontSize' }}
       >
-        {currencyFormat(6078.76, { useGrouping: false })}
+        {data}
       </Typography>
-      <Typography variant="body1" color="text.primary" mb={15}>
+      {/* <Typography variant="body1" color="text.primary" mb={15}>
         Profit is 48% More than last Month
-      </Typography>
+      </Typography> */}
       <Box
         flex={1}
         sx={{
@@ -47,6 +73,7 @@ const Earnings = (): ReactElement => {
       >
         <EarningsChart
           chartRef={chartRef}
+          value={data}
           sx={{
             display: 'flex',
             justifyContent: 'center',
@@ -64,7 +91,7 @@ const Earnings = (): ReactElement => {
           right={0}
           bottom={0}
         >
-          80%
+          {data}
         </Typography>
       </Box>
     </Paper>

@@ -11,8 +11,9 @@ import {
 import { ReactElement, useMemo } from 'react';
 
 type EarningsChartProps = {
-  chartRef: React.MutableRefObject<EChartsReactCore | null>;
+  chartRef: React.MutableRefObject<EChartsReactCore | any>;
   sx?: SxProps;
+  value: any
 };
 
 type EarningsChartOptions = echarts.ComposeOption<
@@ -20,6 +21,8 @@ type EarningsChartOptions = echarts.ComposeOption<
 >;
 
 const EarningsChart = ({ chartRef, ...rest }: EarningsChartProps): ReactElement => {
+  console.log('value ->',chartRef )
+  const value = chartRef.current !== null ? chartRef.current.props.value : 0
   const theme = useTheme();
   const option: EarningsChartOptions = useMemo(
     () => ({
@@ -75,7 +78,7 @@ const EarningsChart = ({ chartRef, ...rest }: EarningsChartProps): ReactElement 
           },
           data: [
             {
-              value: 80,
+              value: value,
             },
           ],
         },
