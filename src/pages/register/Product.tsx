@@ -8,6 +8,7 @@ import {
   TextField,
   // IconButton,
   Typography,
+  MenuItem
   // InputAdornment,
 } from '@mui/material';
 // import IconifyIcon from 'components/base/IconifyIcon';
@@ -16,13 +17,188 @@ import { useState, ReactElement } from 'react';
 const App = (): ReactElement => {
   // const navigate = useNavigate();
   const [form, setForm] = useState({
-    codigo: "OP-TESTE-010",
+    idOrdemProducao: 5,
+    codigoOrdemProducao: "OP-TESTE-010",
     idLoteProduto: 1,
     idLinhaProducao: 1,
     idResponsavel: 4,
     quantidadeProduzir: 5,
     dataHoraInicio: "2025-09-24"
   });
+
+  const ordens = [
+    {
+      idOrdemProducao: 5,
+      codigoOrdemProducao: "OP-20250905-001",
+      codigoLoteProduto: "LP-TAM-20250905-1",
+      codigoLinhaProducao: "LIN-001",
+      codigoProduto: "PRD-TAM-28",
+      quantidadeProduzir: 3000,
+      dataHoraInicio: "2025-09-05T11:00:00.000Z"
+    },
+    {
+      idOrdemProducao: 6,
+      codigoOrdemProducao: "OP-20250905-002",
+      codigoLoteProduto: "LP-GAR-20250905-1",
+      codigoLinhaProducao: "LIN-002",
+      codigoProduto: "PRD-GAR-500",
+      quantidadeProduzir: 2000,
+      dataHoraInicio: "2025-09-05T12:00:00.000Z"
+    },
+    {
+      idOrdemProducao: 7,
+      codigoOrdemProducao: "OP-20250905-003",
+      codigoLoteProduto: "LP-ROT-20250905-1",
+      codigoLinhaProducao: "LIN-003",
+      codigoProduto: "PRD-ROT-500",
+      quantidadeProduzir: 2000,
+      dataHoraInicio: "2025-09-05T13:00:00.000Z"
+    },
+    {
+      idOrdemProducao: 8,
+      codigoOrdemProducao: "OP-20250906-001",
+      codigoLoteProduto: "LP-GAR-20250906-1",
+      codigoLinhaProducao: "LIN-002",
+      codigoProduto: "PRD-GAR-500",
+      quantidadeProduzir: 750,
+      dataHoraInicio: "2025-09-06T11:00:00.000Z"
+    },
+    {
+      idOrdemProducao: 9,
+      codigoOrdemProducao: "OP-20250906-002",
+      codigoLoteProduto: "LP-TAM-20250906-1",
+      codigoLinhaProducao: "LIN-001",
+      codigoProduto: "PRD-TAM-28",
+      quantidadeProduzir: 2000,
+      dataHoraInicio: "2025-09-06T14:00:00.000Z"
+    },
+    {
+      idOrdemProducao: 10,
+      codigoOrdemProducao: "OP-20250907-001",
+      codigoLoteProduto: "LP-POT-20250907-1",
+      codigoLinhaProducao: "LIN-004",
+      codigoProduto: "PRD-POT-1L",
+      quantidadeProduzir: 500,
+      dataHoraInicio: "2025-09-07T16:00:00.000Z"
+    },
+    {
+      idOrdemProducao: 11,
+      codigoOrdemProducao: "OP-20250907-002",
+      codigoLoteProduto: "LP-ROT-20250907-1",
+      codigoLinhaProducao: "LIN-003",
+      codigoProduto: "PRD-ROT-500",
+      quantidadeProduzir: 1000,
+      dataHoraInicio: "2025-09-07T18:00:00.000Z"
+    },
+    {
+      idOrdemProducao: 12,
+      codigoOrdemProducao: "OP-20250908-001",
+      codigoLoteProduto: "LP-TAM-20250908-1",
+      codigoLinhaProducao: "LIN-001",
+      codigoProduto: "PRD-TAM-28",
+      quantidadeProduzir: 4000,
+      dataHoraInicio: "2025-09-08T11:30:00.000Z"
+    },
+    {
+      idOrdemProducao: 13,
+      codigoOrdemProducao: "OP-20250908-002",
+      codigoLoteProduto: "LP-GAR-20250908-1",
+      codigoLinhaProducao: "LIN-002",
+      codigoProduto: "PRD-GAR-500",
+      quantidadeProduzir: 500,
+      dataHoraInicio: "2025-09-08T13:30:00.000Z"
+    },
+    {
+      idOrdemProducao: 14,
+      codigoOrdemProducao: "OP-20250909-001",
+      codigoLoteProduto: "LP-GAR-20250909-1",
+      codigoLinhaProducao: "LIN-002",
+      codigoProduto: "PRD-GAR-500",
+      quantidadeProduzir: 1000,
+      dataHoraInicio: "2025-09-09T12:15:00.000Z"
+    },
+    {
+      idOrdemProducao: 15,
+      codigoOrdemProducao: "OP-20250909-002",
+      codigoLoteProduto: "LP-ROT-20250909-1",
+      codigoLinhaProducao: "LIN-003",
+      codigoProduto: "PRD-ROT-500",
+      quantidadeProduzir: 3000,
+      dataHoraInicio: "2025-09-09T17:45:00.000Z"
+    },
+    {
+      idOrdemProducao: 1,
+      codigoOrdemProducao: "OP-20250910-001",
+      codigoLoteProduto: "LP-TAM-20250910-1",
+      codigoLinhaProducao: "LIN-001",
+      codigoProduto: "PRD-TAM-28",
+      quantidadeProduzir: 10000,
+      dataHoraInicio: "2025-09-10T11:30:00.000Z"
+    },
+    {
+      idOrdemProducao: 2,
+      codigoOrdemProducao: "OP-20250910-002",
+      codigoLoteProduto: "LP-GAR-20250910-1",
+      codigoLinhaProducao: "LIN-002",
+      codigoProduto: "PRD-GAR-500",
+      quantidadeProduzir: 5000,
+      dataHoraInicio: "2025-09-10T12:00:00.000Z"
+    },
+    {
+      idOrdemProducao: 3,
+      codigoOrdemProducao: "OP-20250910-003",
+      codigoLoteProduto: "LP-ROT-20250910-1",
+      codigoLinhaProducao: "LIN-003",
+      codigoProduto: "PRD-ROT-500",
+      quantidadeProduzir: 8000,
+      dataHoraInicio: "2025-09-10T12:30:00.000Z"
+    },
+    {
+      idOrdemProducao: 4,
+      codigoOrdemProducao: "OP-20250910-004",
+      codigoLoteProduto: "LP-POT-20250910-1",
+      codigoLinhaProducao: "LIN-004",
+      codigoProduto: "PRD-POT-1L",
+      quantidadeProduzir: 2000,
+      dataHoraInicio: "2025-09-10T13:00:00.000Z"
+    },
+    {
+      idOrdemProducao: 16,
+      codigoOrdemProducao: "OP-TESTE-001",
+      codigoLoteProduto: "LP-TAM-20250910-1",
+      codigoLinhaProducao: "LIN-001",
+      codigoProduto: "PRD-TAM-28",
+      quantidadeProduzir: 5,
+      dataHoraInicio: "2025-09-30T03:00:00.000Z"
+    },
+    {
+      idOrdemProducao: 17,
+      codigoOrdemProducao: "OP-TESTE-010",
+      codigoLoteProduto: "LP-TAM-20250910-1",
+      codigoLinhaProducao: "LIN-001",
+      codigoProduto: "PRD-TAM-28",
+      quantidadeProduzir: 10,
+      dataHoraInicio: "2025-09-30T03:00:00.000Z"
+    },
+    {
+      idOrdemProducao: 19,
+      codigoOrdemProducao: "OP-TESTE-111",
+      codigoLoteProduto: "LP-TAM-20250910-1",
+      codigoLinhaProducao: "LIN-001",
+      codigoProduto: "PRD-TAM-28",
+      quantidadeProduzir: 5,
+      dataHoraInicio: "2025-09-24T03:00:00.000Z"
+    },
+    {
+      idOrdemProducao: 21,
+      codigoOrdemProducao: "OP-TESTE-112",
+      codigoLoteProduto: "LP-TAM-20250910-1",
+      codigoLinhaProducao: "LIN-001",
+      codigoProduto: "PRD-TAM-28",
+      quantidadeProduzir: 5,
+      dataHoraInicio: "2025-09-24T03:00:00.000Z"
+    }
+  ];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({
@@ -31,8 +207,6 @@ const App = (): ReactElement => {
     });
   };
   const getHealths = async () => {
-
-
 
     try {
       const response = await fetch('http://localhost:4000/api/healths', {
@@ -56,6 +230,17 @@ const App = (): ReactElement => {
   const handleSubmit = async () => {
 
     console.log(form)
+
+    const ordemSelecionada = ordens.find(
+      (o) => o.idOrdemProducao === Number(form.idOrdemProducao)
+    );
+    console.log("Form:", form);
+    console.log("Ordem selecionada:", ordemSelecionada);
+    alert(
+      ordemSelecionada
+        ? `Selecionou ${ordemSelecionada.codigoOrdemProducao}`
+        : "Nenhuma ordem selecionada"
+    );
 
     try {
       const response = await fetch('http://localhost:4000/api/order-production', {
@@ -89,12 +274,30 @@ const App = (): ReactElement => {
           Registro de Ordens de Produção
         </Typography>
 
+        {/* Combo de Lote Produto */}
         <TextField
+        
+          select
           name="codigo"
-          value={form.codigo}
+          value={form.codigoOrdemProducao}
           onChange={handleChange}
           variant="filled"
-          label="Código"
+          label="Código Combo"
+        >
+          {ordens.map((ordem) => (
+            <MenuItem key={ordem.idOrdemProducao} value={ordem.idOrdemProducao}>
+              {ordem.codigoOrdemProducao}
+            </MenuItem>
+          ))}
+        </TextField>
+        {/* Combo de Linha Produção */}
+
+        <TextField
+          name="codigo"
+          value={form.codigoOrdemProducao}
+          onChange={handleChange}
+          variant="filled"
+          label="Código Text"
           type="text"
         />
         <TextField
@@ -130,7 +333,7 @@ const App = (): ReactElement => {
           type="number"
         />
 
-         <TextField
+        <TextField
           name="data Inicio"
           value={form.dataHoraInicio}
           onChange={handleChange}
