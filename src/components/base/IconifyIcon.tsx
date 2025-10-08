@@ -6,7 +6,7 @@ interface IconifyProps extends BoxProps {
 }
 
 const IconifyIcon = ({ icon, width, height, ...rest }: IconifyProps) => {
-  return <></>;
+  return <Box component={Icon} icon={icon} width={width} height={height} {...rest} />;
 };
 
 export default IconifyIcon;

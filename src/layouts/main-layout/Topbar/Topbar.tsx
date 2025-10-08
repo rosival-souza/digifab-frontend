@@ -33,8 +33,8 @@ const Topbar = ({
         width: isMobileScreen
           ? 1
           : open
-          ? `calc(100% - ${drawerOpenWidth}px)`
-          : `calc(100% - ${drawerCloseWidth}px)`,
+            ? `calc(100% - ${drawerOpenWidth}px)`
+            : `calc(100% - ${drawerCloseWidth}px)`,
         paddingRight: '0 !important',
       }}
     >
@@ -92,25 +92,14 @@ const Topbar = ({
           mr={3.75}
           flex="1 1 20%"
         >
-          <Badge
-            color="error"
-            badgeContent=" "
-            variant="dot"
+          <IconButton
             sx={{
-              '& .MuiBadge-badge': {
-                top: 11,
-                right: 11,
-              },
+              padding: 1,
             }}
           >
-            <IconButton
-              sx={{
-                padding: 1,
-              }}
-            >
-              <IconifyIcon icon="ph:bell-bold" width={29} height={32} />
-            </IconButton>
-          </Badge>
+            {/* <IconifyIcon icon="ph:bell-bold" width={29} height={32} /> */}
+          </IconButton>
+
           <UserDropdown />
         </Stack>
       </Toolbar>

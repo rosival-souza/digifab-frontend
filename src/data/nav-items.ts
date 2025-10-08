@@ -10,7 +10,7 @@ const navItems: NavItem[] = [
   {
     id: 1,
     path: '/dashboard',
-    title: 'Ordem de Produção',
+    title: 'Dashboard',
     icon: 'mingcute:home-1-fill',
     active: true,
   },
@@ -38,7 +38,7 @@ const navItems: NavItem[] = [
   {
     id: 5,
     path: '/register/product',
-    title: 'Produto',
+    title: 'Ordem de Produção',
     icon: 'lets-icons:bag-alt-light',
     active: true,
   },

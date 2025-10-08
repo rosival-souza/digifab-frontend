@@ -41,7 +41,7 @@ const UserDropdown = (): ReactElement => {
         <Tooltip title="DigiFab" arrow placement="bottom">
           <Avatar src={profile} sx={{ width: 44, height: 44 }} />
         </Tooltip>
-        <IconifyIcon
+        {/* <IconifyIcon
           color="common.white"
           icon="mingcute:down-fill"
           width={22.5}
@@ -53,7 +53,7 @@ const UserDropdown = (): ReactElement => {
               duration: theme.transitions.duration.short,
             }),
           })}
-        />
+        /> */}
       </Button>
       <Menu
         id="account-dropdown-menu"
