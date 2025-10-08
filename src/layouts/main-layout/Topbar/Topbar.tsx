@@ -68,7 +68,7 @@ const Topbar = ({
           >
             <IconifyIcon icon="mdi:search" />
           </IconButton>
-          <TextField
+          {/* <TextField
             variant="filled"
             fullWidth
             placeholder="Search here..."
@@ -82,7 +82,7 @@ const Topbar = ({
                 </InputAdornment>
               ),
             }}
-          />
+          /> */}
         </Stack>
         <Stack
           direction="row"

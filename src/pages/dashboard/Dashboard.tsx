@@ -160,10 +160,10 @@ const Dashboard = (): ReactElement => {
           {/* <TodaysSales /> */}
           <Paper sx={{ p: { xs: 4, sm: 8 }, height: 1 }}>
             <Typography variant="h4" color="common.white" mb={1.25}>
-              Produtos
+              KPI's
             </Typography>
             <Typography variant="subtitle2" color="text.disabled" mb={6}>
-              Tipos
+              Últimos 30 dias
             </Typography>
             <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={{ xs: 4, sm: 6 }}>
               {dataPlannedUnits.map((saleItem: any) => (

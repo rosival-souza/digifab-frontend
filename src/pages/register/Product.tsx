@@ -271,7 +271,7 @@ const App = (): ReactElement => {
     <Paper sx={{ py: 6, px: { xs: 5, sm: 7.5 } }}>
       <Stack justifyContent="center" gap={5}>
         <Typography variant="h3" textAlign="center" color="text.secondary">
-          Registro de Ordens de Produção
+          Registro de Ordem de Produção
         </Typography>
 
         {/* Combo de Lote Produto */}
@@ -305,7 +305,7 @@ const App = (): ReactElement => {
           value={form.idLoteProduto}
           onChange={handleChange}
           variant="filled"
-          label="ID Lote Produto"
+          label="Lote Produto"
           type="number"
         />
         <TextField
@@ -313,7 +313,7 @@ const App = (): ReactElement => {
           value={form.idLinhaProducao}
           onChange={handleChange}
           variant="filled"
-          label="ID Linha Produção"
+          label="Linha Produção"
           type="number"
         />
         <TextField

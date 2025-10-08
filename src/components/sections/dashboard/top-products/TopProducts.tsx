@@ -81,7 +81,6 @@ const TopProducts = (): ReactElement => {
             <TableRow>
               <TableCell align="left">#</TableCell>
               <TableCell align="left">Nome</TableCell>
-              <TableCell align="left">Popularidade</TableCell>
               <TableCell align="center">Total Planejado</TableCell>
             </TableRow>
           </TableHead>

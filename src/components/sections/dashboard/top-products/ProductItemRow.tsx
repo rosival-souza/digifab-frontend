@@ -25,16 +25,6 @@ const ProductItemRow = ({ productItem }: { productItem: ProductItem }): ReactEle
       >
         {productItem.NOME_PRODUTO}
       </TableCell>
-      <TableCell align="left">
-        <LinearProgress
-          variant="determinate"
-          color='warning'
-          value={Number(productItem.TOTAL_PLANEJADO)}
-          sx={{
-            bgcolor: 'grey.900',
-          }}
-        />
-      </TableCell>
       <TableCell align="center">
         <Chip
           label={`${productItem.TOTAL_PLANEJADO}`}

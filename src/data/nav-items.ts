@@ -10,7 +10,7 @@ const navItems: NavItem[] = [
   {
     id: 1,
     path: '/dashboard',
-    title: 'Dashboard',
+    title: 'Ordem de Produção',
     icon: 'mingcute:home-1-fill',
     active: true,
   },
@@ -78,13 +78,13 @@ const navItems: NavItem[] = [
   //   active: false,
   // },
  
-  {
-    id: 11,
-    path: 'authentication/sign-up',
-    title: 'Sign Up',
-    icon: 'tdesign:user-add',
-    active: true,
-  },
+  // {
+  //   id: 11,
+  //   path: 'authentication/sign-up',
+  //   title: 'Sign Up',
+  //   icon: 'tdesign:user-add',
+  //   active: true,
+  // },
    {
     id: 12,
     path: 'authentication/login',
