@@ -5,7 +5,11 @@ import { useState, MouseEvent, useCallback, ReactElement } from 'react';
 import userMenuItems from 'data/usermenu-items';
 
 const UserDropdown = (): ReactElement => {
+
+  console.log('localStorage ->', localStorage.getItem('profile'))
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [URLPhoto, setURLPhoto] = useState<any>(localStorage.getItem('profile'));
   const menuOpen = Boolean(anchorEl);
 
   const handleUserClick = useCallback((event: MouseEvent<HTMLElement>) => {
@@ -18,7 +22,7 @@ const UserDropdown = (): ReactElement => {
 
   return (
     <>
-      
+
       <Button
         color="inherit"
         variant="text"
@@ -39,21 +43,12 @@ const UserDropdown = (): ReactElement => {
         }}
       >
         <Tooltip title="DigiFab" arrow placement="bottom">
-          <Avatar src={profile} sx={{ width: 44, height: 44 }} />
+          <Avatar
+            src={URLPhoto || profile}
+            sx={{ width: 44, height: 44 }}
+            alt={'Usuário'}
+          />
         </Tooltip>
-        {/* <IconifyIcon
-          color="common.white"
-          icon="mingcute:down-fill"
-          width={22.5}
-          height={22.5}
-          sx={(theme) => ({
-            transform: menuOpen ? `rotate(180deg)` : `rotate(0deg)`,
-            transition: theme.transitions.create('all', {
-              easing: theme.transitions.easing.sharp,
-              duration: theme.transitions.duration.short,
-            }),
-          })}
-        /> */}
       </Button>
       <Menu
         id="account-dropdown-menu"
