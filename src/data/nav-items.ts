@@ -42,13 +42,13 @@ const navItems: NavItem[] = [
     icon: 'lets-icons:bag-alt-light',
     active: true,
   },
-  // {
-  //   id: 6,
-  //   path: '#!',
-  //   title: 'Sales Report',
-  //   icon: 'lucide:line-chart',
-  //   active: false,
-  // },
+  {
+    id: 6,
+    path: '/search',
+    title: 'Rastreabilidade',
+    icon: 'ic:round-history',
+    active: true,
+  },
   // {
   //   id: 7,
   //   path: '#!',

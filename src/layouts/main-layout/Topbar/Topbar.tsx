@@ -22,6 +22,8 @@ const Topbar = ({
 }): ReactElement => {
   const { down } = useBreakpoints();
 
+  console.log('props ->', location.pathname)
+
   const isMobileScreen = down('sm');
 
   return (

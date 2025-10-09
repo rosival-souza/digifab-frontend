@@ -19,6 +19,7 @@ const AuthLayout = lazy<({ children }: PropsWithChildren) => ReactElement>(
 
 const Dashboard = lazy<() => ReactElement>(() => import('pages/dashboard/Dashboard'));
 const Product = lazy<() => ReactElement>(() => import('pages/register/Product'));
+const Search = lazy<() => ReactElement>(() => import('pages/dashboard/Search'));
 const Login = lazy<() => ReactElement>(() => import('pages/authentication/Login'));
 const SignUp = lazy<() => ReactElement>(() => import('pages/authentication/SignUp'));
 const ErrorPage = lazy<() => ReactElement>(() => import('pages/error/ErrorPage'));
@@ -60,6 +61,14 @@ const routes: RouteObject[] = [
             element: (
               <PrivateRoute>
                 <Product />
+              </PrivateRoute>
+            ),
+          },
+          {
+            path: 'search',
+            element: (
+              <PrivateRoute>
+                <Search />
               </PrivateRoute>
             ),
           },

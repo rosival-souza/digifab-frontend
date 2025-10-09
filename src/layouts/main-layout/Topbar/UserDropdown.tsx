@@ -48,6 +48,7 @@ const UserDropdown = (): ReactElement => {
             sx={{ width: 44, height: 44 }}
             alt={'Usuário'}
           />
+
         </Tooltip>
       </Button>
       <Menu
