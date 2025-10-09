@@ -56,12 +56,14 @@ const TopProducts = (): ReactElement => {
         <Table sx={{ minWidth: 600 }}>
           <TableHead>
             <TableRow>
+              <TableCell align="left">ID</TableCell>
               <TableCell align="left">código Produto</TableCell>
               <TableCell align="left">código Ordem Producao</TableCell>
               <TableCell align="left">código Lote Produto</TableCell>
               <TableCell align="center">código Linha Produção</TableCell>
               <TableCell align="center">QTD. Produzida</TableCell>
               <TableCell align="center">Data Hora</TableCell>
+              <TableCell align="center">Visualizar</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

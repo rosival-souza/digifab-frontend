@@ -1,9 +1,52 @@
 import { Chip, TableCell, TableRow } from '@mui/material';
-import { ReactElement } from 'react';
+import { ReactElement, useState } from 'react';
+import IconifyIcon from 'components/base/IconifyIcon';
 
 const ProductDeviations = ({ productItem }: { productItem: any }): ReactElement => {
+
+    const [dataModal, setDataModal] = useState<any>([])
+
+    const getData = async (id: number) => {
+
+        try {
+            const response = await fetch(`http://localhost:4000/api/order-production/${id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            const data = await response.json();
+            console.log('getData ->', data);
+            alert(`
+                    Descrição: ${data.linhaProducao.descricao}
+                    Capacidade Hora: ${data.linhaProducao.capacidadeHora}
+                    Status: ${data.linhaProducao.status}
+                `)
+            if (data.length > 0) {
+                setDataModal(data)
+            }
+
+        } catch (error) {
+            console.error(error);
+            alert('error');
+        }
+    };
+
     return (
         <TableRow>
+            <TableCell
+                align="left"
+                component="th"
+                variant="head"
+                scope="row"
+                sx={{
+                    color: 'common.white',
+                    fontSize: 'body1.fontSize',
+                }}
+            >
+                {productItem.idOrdemProducao}
+            </TableCell>
             <TableCell
                 align="left"
                 component="th"
@@ -63,10 +106,17 @@ const ProductDeviations = ({ productItem }: { productItem: any }): ReactElement 
             <TableCell align="center">
                 <Chip
                     label={`${productItem.dataHoraInicio}`}
-                    color='warning'
+                    color='primary'
                     variant="outlined"
                     size="medium"
                 />
+            </TableCell>
+            <TableCell align="center">
+                <IconifyIcon 
+                fontSize={30}
+                style={{cursor: 'pointer'}}
+                onClick={() => getData(productItem.idOrdemProducao)}
+                icon="el:eye-open" color="text.success" />
             </TableCell>
         </TableRow>
     );
