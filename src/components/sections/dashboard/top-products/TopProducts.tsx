@@ -101,7 +101,7 @@ CONSUMIDO_KG: "296.000",
 DESVIO_KG: "31.940"
             */}
       <Typography variant="h4" color="common.white" mb={8}>
-        Listagem de Produtos
+        Consolidado por Matéria-Prima (Planejado vs. Consumido)
       </Typography>
       <TableContainer component={SimpleBar}>
         <Table sx={{ minWidth: 600 }}>
