@@ -304,7 +304,7 @@ const Dashboard = (): ReactElement => {
   return (
     <>
       <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={3.5}>
-        <Box gridColumn={{ xs: 'span 12', '2xl': 'span 8' }} order={{ xs: 0 }}>
+        <Box gridColumn={{ xs: 'span 12', '2xl': 'span 12' }} order={{ xs: 0 }}>
           {/* <TodaysSales /> */}
           <Paper sx={{ p: { xs: 4, sm: 8 }, height: 1 }}>
             <Typography variant="h4" color="common.white" mb={1.25}>
@@ -379,7 +379,7 @@ const Dashboard = (): ReactElement => {
         {/* <Box gridColumn={{ xs: 'span 12', lg: 'span 4' }} order={{ xs: 1, '2xl': 1 }}>
           <Level />
         </Box> */}
-        <Box gridColumn={{ xs: 'span 12', lg: 'span 8' }} order={{ xs: 2, '2xl': 2 }}>
+        <Box gridColumn={{ xs: 'span 12', lg: 'span 12' }} order={{ xs: 2, '2xl': 2 }}>
           <TopProducts />
         </Box>
         {/* <Box
