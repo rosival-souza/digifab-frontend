@@ -10,7 +10,7 @@ import TopProducts from 'components/sections/dashboard/top-products/TopProducts'
 import Image from 'components/base/Image';
 import totalSales from 'assets/images/todays-sales/total-sales.png';
 import totalOrder from 'assets/images/todays-sales/total-order.png';
-import productSold from 'assets/images/todays-sales/product-sold.png';
+// import productSold from 'assets/images/todays-sales/product-sold.png';
 import newCustomer from 'assets/images/todays-sales/new-customer.png';
 export interface SaleItem {
   id?: number;

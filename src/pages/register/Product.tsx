@@ -1,5 +1,5 @@
 import {
-  // Box,
+  Box,
   // Link,
   Paper,
   Stack,
@@ -13,6 +13,7 @@ import {
 } from '@mui/material';
 // import IconifyIcon from 'components/base/IconifyIcon';
 import { useState, ReactElement } from 'react';
+import OrderProduction from 'components/sections/dashboard/top-products/orderProduction';
 
 const App = (): ReactElement => {
   // const navigate = useNavigate();
@@ -25,6 +26,8 @@ const App = (): ReactElement => {
     quantidadeProduzir: 5,
     dataHoraInicio: "2025-09-24"
   });
+
+  const [isEnable, setIsEnable] = useState(false)
 
   const ordens = [
     {
@@ -206,27 +209,7 @@ const App = (): ReactElement => {
       [e.target.name]: e.target.value,
     });
   };
-  const getHealths = async () => {
 
-    try {
-      const response = await fetch('http://localhost:4000/api/healths', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      const data = await response.json();
-      console.log('response', data);
-
-      alert('Conectado com digifab-backend!!');
-      console.log('form->', form);
-      // navigate(rootPaths.homeRoot);
-    } catch (error) {
-      console.error(error);
-      alert('error');
-    }
-  };
   const handleSubmit = async () => {
 
     console.log(form)
@@ -269,217 +252,103 @@ const App = (): ReactElement => {
 
   return (
     <Paper sx={{ py: 6, px: { xs: 5, sm: 7.5 } }}>
-      <Stack justifyContent="center" gap={5}>
-        <Typography variant="h3" textAlign="center" color="text.secondary">
-          Registro de Ordem de Produção
-        </Typography>
-
-        {/* Combo de Lote Produto */}
-        <TextField
-        
-          select
-          name="codigo"
-          value={form.codigoOrdemProducao}
-          onChange={handleChange}
-          variant="filled"
-          label="Código Combo"
-        >
-          {ordens.map((ordem) => (
-            <MenuItem key={ordem.idOrdemProducao} value={ordem.idOrdemProducao}>
-              {ordem.codigoOrdemProducao}
-            </MenuItem>
-          ))}
-        </TextField>
-        {/* Combo de Linha Produção */}
-
-        <TextField
-          name="codigo"
-          value={form.codigoOrdemProducao}
-          onChange={handleChange}
-          variant="filled"
-          label="Código Text"
-          type="text"
-        />
-        <TextField
-          name="idLoteProduto"
-          value={form.idLoteProduto}
-          onChange={handleChange}
-          variant="filled"
-          label="Lote Produto"
-          type="number"
-        />
-        <TextField
-          name="idLinhaProducao"
-          value={form.idLinhaProducao}
-          onChange={handleChange}
-          variant="filled"
-          label="Linha Produção"
-          type="number"
-        />
-        <TextField
-          name="idResponsavel"
-          value={form.idResponsavel}
-          onChange={handleChange}
-          variant="filled"
-          label="ID Responsável"
-          type="number"
-        />
-        <TextField
-          name="quantidadeProduzir"
-          value={form.quantidadeProduzir}
-          onChange={handleChange}
-          variant="filled"
-          label="Quantidade Produzir"
-          type="number"
-        />
-
-        <TextField
-          name="data Inicio"
-          value={form.dataHoraInicio}
-          onChange={handleChange}
-          variant="filled"
-          label="Data Inicio"
-          type="date"
-        />
-
+      <Box gridColumn={{ xs: 'span 12', lg: 'span 8' }} order={{ xs: 2, '2xl': 2 }}>
         <Button
-          onClick={handleSubmit}
+          onClick={()=> setIsEnable(!isEnable)}
           sx={{ fontWeight: 'fontWeightRegular' }}
         >
-          Cadastrar
+          Nova OP
         </Button>
-        <Divider />
-      </Stack>
+        <OrderProduction />
+      </Box>
+      {
+        isEnable
+          ?
+          <Stack justifyContent="center" gap={5}>
+            <Typography variant="h3" textAlign="center" color="text.secondary">
+              Registro de Ordem de Produção
+            </Typography>
+
+            {/* Combo de Lote Produto */}
+            <TextField
+              select
+              name="codigo"
+              value={form.codigoOrdemProducao}
+              onChange={handleChange}
+              variant="filled"
+              label="Código Combo"
+            >
+              {ordens.map((ordem) => (
+                <MenuItem key={ordem.idOrdemProducao} value={ordem.idOrdemProducao}>
+                  {ordem.codigoOrdemProducao}
+                </MenuItem>
+              ))}
+            </TextField>
+            {/* Combo de Linha Produção */}
+
+            <TextField
+              name="codigo"
+              value={form.codigoOrdemProducao}
+              onChange={handleChange}
+              variant="filled"
+              label="Código Text"
+              type="text"
+            />
+            <TextField
+              name="idLoteProduto"
+              value={form.idLoteProduto}
+              onChange={handleChange}
+              variant="filled"
+              label="Lote Produto"
+              type="number"
+            />
+            <TextField
+              name="idLinhaProducao"
+              value={form.idLinhaProducao}
+              onChange={handleChange}
+              variant="filled"
+              label="Linha Produção"
+              type="number"
+            />
+            <TextField
+              name="idResponsavel"
+              value={form.idResponsavel}
+              onChange={handleChange}
+              variant="filled"
+              label="ID Responsável"
+              type="number"
+            />
+            <TextField
+              name="quantidadeProduzir"
+              value={form.quantidadeProduzir}
+              onChange={handleChange}
+              variant="filled"
+              label="Quantidade Produzir"
+              type="number"
+            />
+
+            <TextField
+              name="data Inicio"
+              value={form.dataHoraInicio}
+              onChange={handleChange}
+              variant="filled"
+              label="Data Inicio"
+              type="date"
+            />
+
+            <Button
+              onClick={handleSubmit}
+              sx={{ fontWeight: 'fontWeightRegular' }}
+            >
+              Cadastrar
+            </Button>
+            <Divider />
+          </Stack>
+          :
+          <></>
+      }
     </Paper>
   );
 };
-// return (
-//   <>
-
-//     <Paper
-//       sx={{
-//         py: 6,
-//         px: { xs: 5, sm: 7.5 },
-//       }}
-//     >
-//       <Stack justifyContent="center" gap={5}>
-//         <Typography variant="h3" textAlign="center" color="text.secondary">
-//           Registro de Produto
-//         </Typography>
-//         <TextField
-//           variant="filled"
-//           label="Nome"
-//           type="text"
-//           sx={{
-//             '.MuiFilledInput-root': {
-//               bgcolor: 'grey.A100',
-//               ':hover': {
-//                 bgcolor: 'background.default',
-//               },
-//               ':focus': {
-//                 bgcolor: 'background.default',
-//               },
-//               ':focus-within': {
-//                 bgcolor: 'background.default',
-//               },
-//             },
-//             borderRadius: 2,
-//           }}
-//         />
-//         <TextField
-//           variant="filled"
-//           label="Tipo"
-//           type="text"
-//           sx={{
-//             '.MuiFilledInput-root': {
-//               bgcolor: 'grey.A100',
-//               ':hover': {
-//                 bgcolor: 'background.default',
-//               },
-//               ':focus': {
-//                 bgcolor: 'background.default',
-//               },
-//               ':focus-within': {
-//                 bgcolor: 'background.default',
-//               },
-//             },
-//             borderRadius: 2,
-//           }}
-//         />
-//         <TextField
-//           variant="filled"
-//           label="Quantidade"
-//           type="text"
-//           sx={{
-//             '.MuiFilledInput-root': {
-//               bgcolor: 'grey.A100',
-//               ':hover': {
-//                 bgcolor: 'background.default',
-//               },
-//               ':focus': {
-//                 bgcolor: 'background.default',
-//               },
-//               ':focus-within': {
-//                 bgcolor: 'background.default',
-//               },
-//             },
-//             borderRadius: 2,
-//           }}
-//         />
-//         <TextField
-//           variant="filled"
-//           label="Valor"
-//           type="text"
-//           sx={{
-//             '.MuiFilledInput-root': {
-//               bgcolor: 'grey.A100',
-//               ':hover': {
-//                 bgcolor: 'background.default',
-//               },
-//               ':focus': {
-//                 bgcolor: 'background.default',
-//               },
-//               ':focus-within': {
-//                 bgcolor: 'background.default',
-//               },
-//             },
-//             borderRadius: 2,
-//           }}
-//         />
-//         <TextField
-//           variant="filled"
-//           label="Email"
-//           type="text"
-//           sx={{
-//             '.MuiFilledInput-root': {
-//               bgcolor: 'grey.A100',
-//               ':hover': {
-//                 bgcolor: 'background.default',
-//               },
-//               ':focus': {
-//                 bgcolor: 'background.default',
-//               },
-//               ':focus-within': {
-//                 bgcolor: 'background.default',
-//               },
-//             },
-//             borderRadius: 2,
-//           }}
-//         />
-
-//         <Button
-//           onClick={handleSubmit}
-//           sx={{
-//             fontWeight: 'fontWeightRegular',
-//           }}
-//         >
-//           Cadastrar
-//         </Button>
-//         <Divider />
-//       </Stack>
-//     </Paper>
-//   </>
-// );
-
 
 export default App;
