@@ -27,16 +27,40 @@ const Dashboard = (): ReactElement => {
     {
       id: 1,
       icon: totalSales,
-      title: '10000',
+      title: '0',
       subtitle: 'UN. Planejadas',
       increment: 10,
       color: 'warning.main',
     },
     {
       id: 3,
-      icon: productSold,
-      title: '9',
-      subtitle: 'Produtos Vendidos',
+      icon: totalSales,
+      title: '0',
+      subtitle: 'Kg Consumidos de Matéria-Prima',
+      increment: 2,
+      color: 'secondary.main',
+    },
+    {
+      id: 4,
+      icon: totalSales,
+      title: '0',
+      subtitle: 'QTD. de Lotes de Produto Atendidos',
+      increment: 2,
+      color: 'secondary.main',
+    },
+    {
+      id: 5,
+      icon: totalSales,
+      title: '0',
+      subtitle: 'Utilização Média Ponderada',
+      increment: 2,
+      color: 'secondary.main',
+    },
+      {
+      id: 6,
+      icon: totalSales,
+      title: '0',
+      subtitle: 'Utilização Média Simples',
       increment: 2,
       color: 'secondary.main',
     },
@@ -63,10 +87,11 @@ const Dashboard = (): ReactElement => {
       color: 'info.main',
     },
   ])
-
+  
   const getPlannedUnits = async () => {
 
     try {
+
       const response = await fetch(
         'http://localhost:4000/api/dashboard/kpis/planned-units',
         {
@@ -93,6 +118,125 @@ const Dashboard = (): ReactElement => {
     }
   };
 
+  const getMPConsumed = async () => {
+
+    try {
+
+      const response = await fetch(
+        'http://localhost:4000/api/dashboard/kpis/raw-mp-consumed',
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      const data = await response.json();
+      console.log('getMPConsumed', data);
+
+      setPlannedUnits((prev: any) =>
+        prev.map((item: any) =>
+          item.id === 3 ? { ...item, title: String(data.dados) } : item
+        )
+      );
+
+
+    } catch (error) {
+      console.error(error);
+      alert('error');
+    }
+  };
+
+  const getServedLots = async () => {
+
+    try {
+
+      const response = await fetch(
+        'http://localhost:4000/api/dashboard/kpis/served-product-lots',
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      const data = await response.json();
+      console.log('getServedLots', data);
+
+      setPlannedUnits((prev: any) =>
+        prev.map((item: any) =>
+          item.id === 4 ? { ...item, title: String(data.dados) } : item
+        )
+      );
+
+
+    } catch (error) {
+      console.error(error);
+      alert('error');
+    }
+  };
+
+  const getUtilizationAverage = async () => {
+
+    try {
+
+      const response = await fetch(
+        'http://localhost:4000/api/dashboard/kpis/line-utilization-average',
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      const data = await response.json();
+      console.log('getUtilizationAverage', data);
+
+      setPlannedUnits((prev: any) =>
+        prev.map((item: any) =>
+          item.id === 5 ? { ...item, title: Number(data.dados * 100) } : item
+        )
+      );
+
+
+    } catch (error) {
+      console.error(error);
+      alert('error');
+    }
+  };
+
+  const getUtilizationSimpleAverage = async () => {
+
+    try {
+
+      const response = await fetch(
+        'http://localhost:4000/api/dashboard/kpis/line-utilization-simple-average',
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      const data = await response.json();
+      console.log('getUtilizationAverage', data);
+
+      setPlannedUnits((prev: any) =>
+        prev.map((item: any) =>
+          item.id === 6 ? { ...item, title: Number(data.dados * 100) } : item
+        )
+      );
+
+
+    } catch (error) {
+      console.error(error);
+      alert('error');
+    }
+  };
   const getOrders = async () => {
     try {
       const response = await fetch(
@@ -150,6 +294,10 @@ const Dashboard = (): ReactElement => {
     getOrders()
     getUsers()
     getPlannedUnits()
+    getMPConsumed()
+    getServedLots()
+    getUtilizationAverage()
+    getUtilizationSimpleAverage()
 
   }, [])
 
