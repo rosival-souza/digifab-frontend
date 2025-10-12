@@ -4,7 +4,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const App = (): ReactElement => {
   return (
-    <GoogleOAuthProvider clientId="423072952555-0e0hjoeeb0nrbl7lq0t5lht7fbmgee0a.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId="999996956231-8i7k5dl9pjoqq1namq32cur92v0vhci6.apps.googleusercontent.com">
       <Outlet />
     </GoogleOAuthProvider>
   );
