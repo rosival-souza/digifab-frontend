@@ -63,7 +63,7 @@ const TopProducts = (): ReactElement => {
               <TableCell align="center">código Linha Produção</TableCell>
               <TableCell align="center">QTD. Produzida</TableCell>
               <TableCell align="center">Data Hora</TableCell>
-              <TableCell align="center">Visualizar</TableCell>
+              <TableCell align="center">Visualizar/Consumo</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

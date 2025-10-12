@@ -354,25 +354,28 @@ const Dashboard = (): ReactElement => {
                 </Box>
               ))}
 
-              {dataUsers.map((saleItem: any) => (
-                <Box key={saleItem.id} gridColumn={{ xs: 'span 12', sm: 'span 6', lg: 'span 3' }}>
-                  {/* <SaleCard saleItem={saleItem} /> */}
-                  <Stack gap={6} p={5} borderRadius={4} height={1} bgcolor="background.default">
-                    <Image src={saleItem.icon} alt={saleItem.subtitle} width={26} height={26} />
-                    <Box>
-                      <Typography variant="h4" color="common.white" mb={4}>
-                        {saleItem.title}
-                      </Typography>
-                      <Typography variant="body1" color="text.secondary" mb={2}>
-                        {saleItem.subtitle}
-                      </Typography>
-                      <Typography variant="body2" color={saleItem.color} lineHeight={1.25}>
-                        {/* +{saleItem.increment}% from yesterday */}
-                      </Typography>
-                    </Box>
-                  </Stack>
-                </Box>
-              ))}
+              {
+              // dataUsers.map((saleItem: any) => (
+              //   <Box key={saleItem.id} gridColumn={{ xs: 'span 12', sm: 'span 6', lg: 'span 3' }}>
+              //     {/* <SaleCard saleItem={saleItem} /> */}
+              //     <Stack gap={6} p={5} borderRadius={4} height={1} bgcolor="background.default">
+              //       <Image src={saleItem.icon} alt={saleItem.subtitle} width={26} height={26} />
+              //       <Box>
+              //         <Typography variant="h4" color="common.white" mb={4}>
+              //           {saleItem.title}
+              //         </Typography>
+              //         <Typography variant="body1" color="text.secondary" mb={2}>
+              //           {saleItem.subtitle}
+              //         </Typography>
+              //         <Typography variant="body2" color={saleItem.color} lineHeight={1.25}>
+              //           {/* +{saleItem.increment}% from yesterday */}
+              //         </Typography>
+              //       </Box>
+              //     </Stack>
+              //   </Box>
+              // ))
+              }
+
             </Box>
           </Paper>
         </Box>

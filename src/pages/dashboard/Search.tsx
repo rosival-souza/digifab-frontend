@@ -6,68 +6,233 @@ import {
   Button,
   // Divider,
   TextField,
-  // IconButton,
-  // Typography,
+  Chip,
+  Table,
+  TableHead,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+  Typography,
   MenuItem,
-  InputAdornment,
 } from '@mui/material';
-import IconifyIcon from 'components/base/IconifyIcon';
-import { ReactElement } from 'react';
+import SimpleBar from 'simplebar-react';
+import { ReactElement, useEffect, useState } from 'react';
 // import OrderProduction from 'components/sections/dashboard/top-products/orderProduction';
 
 const App = (): ReactElement => {
 
-  // const [isEnable, setIsEnable] = useState(false)
+  const [data, setData] = useState([])
+  const [dataTrackability, setDataTrackability] = useState<any>({})
+  const [codigoLoteProduto, setCodigoLoteProduto] = useState<string>('')
+
+  const getData = async () => {
+
+    try {
+      const response = await fetch(`http://localhost:4000/api/order-production/product-lot`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const data = await response.json();
+      console.log('product-lot ->', data);
+
+      if (data.length > 0) {
+        setData(data)
+      }
+
+    } catch (error) {
+      console.error(error);
+      alert('error');
+    }
+  };
+
+  const getTrackability = async () => {
+
+    try {
+      const response = await fetch(`http://localhost:4000/api/trackability?codigoLoteProduto=${codigoLoteProduto}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const data = await response.json();
+      console.log('getTrackability ->', data);
+
+      if (data.length > 0) {
+        setDataTrackability(data[0])
+      }
+
+    } catch (error) {
+      console.error(error);
+      alert('error');
+    }
+  }
+
+  useEffect(() => {
+
+    getData()
+
+  }, [])
 
   return (
-    <Paper sx={{ py: 6, px: { xs: 5, sm: 7.5 } }}>
-      <Box gridColumn={{ xs: 'span 12', lg: 'span 8' }} order={{ xs: 2, '2xl': 2 }}>
+    <>
+      <Paper sx={{ py: 6, px: { xs: 5, sm: 7.5 } }}>
+        <Box gridColumn={{ xs: 'span 12', lg: 'span 8' }} order={{ xs: 2, '2xl': 2 }}>
+          <Typography variant="h4" color="common.white" mb={8}>
+            Lote Produto:
+          </Typography>
+          <TextField
+            select
+            fullWidth
+            name="codigoLoteProduto"
+            onChange={(e) => setCodigoLoteProduto(e.target.value)}
+            variant="filled"
+          >
+            {data.map((item: any) => (
+              <MenuItem key={item.idLoteProduto} value={item.codigoLoteProduto}>
+                {item.codigoLoteProduto}
+              </MenuItem>
+            ))}
+          </TextField>
 
-        <TextField
-          select
-          fullWidth
-          name="codigo"
-          // value={form.codigoOrdemProducao}
-          onChange={(e) => alert(e.target.value)}
-          variant="filled"
-          label="Lote Produto:"
-        >
-          {/* {ordens.map((ordem) => (
-                <MenuItem key={ordem.idOrdemProducao} value={ordem.idOrdemProducao}>
-                  {ordem.codigoOrdemProducao}
-                </MenuItem>
-              ))} */}
-          <MenuItem value="Item 1">Item 1</MenuItem>
-          <MenuItem value="Item 2">Item 2</MenuItem>
-          <MenuItem value="Item 3">Item 3</MenuItem>
-          <MenuItem value="Item 4">Item 4</MenuItem>
-        </TextField>
+          <br />
+          <br />
+          <Button
+            onClick={() => getTrackability()}
+            sx={{ fontWeight: 'fontWeightRegular' }}
+          >
+            Buscar
+          </Button>
+        </Box>
+      </Paper>
+      <br />
+      <Paper sx={{ py: 6, px: { xs: 5, sm: 7.5 } }}>
+        <Typography variant="h4" color="common.white" mb={8}>
+          Rastreamento
+        </Typography>
+        {
+          "codigoProduto" in dataTrackability &&
+          <TableContainer component={SimpleBar}>
+            <Table sx={{ minWidth: 600 }}>
+              <TableHead>
+                <TableRow>
+                  <TableCell align="left">COD. Produto</TableCell>
+                  <TableCell align="left">Nome Produto</TableCell>
+                  <TableCell align="left">Lote Produto</TableCell>
+                  <TableCell align="left">COD. OP</TableCell>
+                  <TableCell align="center">Responsável OP</TableCell>
+                  <TableCell align="center">Nome MP</TableCell>
+                  <TableCell align="center">DT. INI OP</TableCell>
+                  <TableCell align="center">Consumo Kg</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                <TableRow>
+                  <TableCell
+                    align="left"
+                    component="th"
+                    variant="head"
+                    scope="row"
+                    sx={{
+                      color: 'common.white',
+                      fontSize: 'body1.fontSize',
+                    }}
+                  >
+                    {dataTrackability.codigoProduto}
+                  </TableCell>
+                  <TableCell
+                    align="left"
+                    component="th"
+                    variant="head"
+                    scope="row"
+                    sx={{
+                      color: 'common.white',
+                      fontSize: 'body1.fontSize',
+                    }}
+                  >
+                    {dataTrackability.nomeProduto}
+                  </TableCell>
+                  <TableCell
+                    align="left"
+                    component="th"
+                    variant="head"
+                    scope="row"
+                    sx={{
+                      color: 'common.white',
+                      fontSize: 'body1.fontSize',
+                    }}
+                  >
+                    {dataTrackability.loteProduto}
+                  </TableCell>
+                  <TableCell
+                    align="left"
+                    component="th"
+                    variant="head"
+                    scope="row"
+                    sx={{
+                      color: 'common.white',
+                      fontSize: 'body1.fontSize',
+                    }}
+                  >
+                    {dataTrackability.codigoOp}
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    component="th"
+                    variant="head"
+                    scope="row"
+                    sx={{
+                      color: 'common.white',
+                      fontSize: 'body1.fontSize',
+                    }}
+                  >
+                    {dataTrackability.responsavelOp}
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    component="th"
+                    variant="head"
+                    scope="row"
+                    sx={{
+                      color: 'common.white',
+                      fontSize: 'body1.fontSize',
+                    }}
+                  >
+                    {dataTrackability.nomeMp}
+                  </TableCell>
+                  <TableCell
+                    align="center"
+                    component="th"
+                    variant="head"
+                    scope="row"
+                    sx={{
+                      color: 'common.white',
+                      fontSize: 'body1.fontSize',
+                    }}
+                  >
+                    {dataTrackability.inicioOp}
+                  </TableCell>
 
-        {/* <TextField
-          variant="filled"
-          fullWidth
-          placeholder="Search here..."
-          sx={{
-            display: { xs: 'none', sm: 'flex' },
-          }}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="end">
-                <IconifyIcon icon="akar-icons:search" width={13} height={13} />
-              </InputAdornment>
-            ),
-          }}
-        /> */}
-        <br />
-        <br />
-        <Button
-          onClick={() => alert('Search...')}
-          sx={{ fontWeight: 'fontWeightRegular' }}
-        >
-          Buscar
-        </Button>
-      </Box>
-    </Paper>
+                  <TableCell align="center">
+                    <Chip
+                      label={`${dataTrackability.consumoKg}`}
+                      color='warning'
+                      variant="outlined"
+                      size="medium"
+                    />
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </TableContainer>
+        }
+
+      </Paper>
+    </>
   );
 };
 
