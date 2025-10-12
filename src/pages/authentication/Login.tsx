@@ -37,7 +37,8 @@ const Login = (): ReactElement => {
     console.log('inputlogin ->', inputLogin)
 
     if (inputLogin === 'login@digifab.com' && inputPassword === '12345') {
-      login("login@digifab.com", "12345");
+      // Login local fake: não armazena token
+      login("login@digifab.com");
     } else {
       alert('email ou senha incorretos!! (email: login@digifab.com, senha: 12345)')
     }
