@@ -24,7 +24,7 @@ const App = (): ReactElement => {
 
   const [data, setData] = useState([])
   const [dataTrackability, setDataTrackability] = useState<any>({})
-  const [codigoLoteProduto, setCodigoLoteProduto] = useState<string>('')
+  const [codigoLoteProduto, setCodigoLoteProduto] = useState<string>('SELECIONE UM LOTE DE PRODUTO')
 
   const getData = async () => {
 
@@ -89,9 +89,13 @@ const App = (): ReactElement => {
             select
             fullWidth
             name="codigoLoteProduto"
+            value={codigoLoteProduto}
             onChange={(e) => setCodigoLoteProduto(e.target.value)}
             variant="filled"
           >
+            <MenuItem value="SELECIONE UM LOTE DE PRODUTO">
+            SELECIONE UM LOTE DE PRODUTO
+            </MenuItem>
             {data.map((item: any) => (
               <MenuItem key={item.idLoteProduto} value={item.codigoLoteProduto}>
                 {item.codigoLoteProduto}
@@ -102,6 +106,7 @@ const App = (): ReactElement => {
           <br />
           <br />
           <Button
+            disabled={codigoLoteProduto === '' || codigoLoteProduto === 'SELECIONE UM LOTE DE PRODUTO' ? true : false}
             onClick={() => getTrackability()}
             sx={{ fontWeight: 'fontWeightRegular' }}
           >

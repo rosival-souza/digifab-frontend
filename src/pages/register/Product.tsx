@@ -12,7 +12,7 @@ import {
   // InputAdornment,
 } from '@mui/material';
 // import IconifyIcon from 'components/base/IconifyIcon';
-import { useState, ReactElement } from 'react';
+import { useState, ReactElement, useEffect } from 'react';
 import OrderProduction from 'components/sections/dashboard/top-products/orderProduction';
 
 const App = (): ReactElement => {
@@ -28,6 +28,8 @@ const App = (): ReactElement => {
   });
 
   const [isEnable, setIsEnable] = useState(false)
+  const [dataProductionLine, setDataProductionLine] = useState([])
+  const [dataProductLote, setDataProductLote] = useState([])
 
   const ordens = [
     {
@@ -249,15 +251,93 @@ const App = (): ReactElement => {
       alert('Erro ao cadastrar produto!');
     }
   };
+  const getGoogle = async () =>{
+      try {
+      const response = await fetch(`http://localhost:4000/auth/google`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          idToken: "" 
+        }),
+      });
+
+      const data = await response.json();
+      console.log('getGoogle ->', data);
+
+      // if (data.length > 0) {
+      //   setDataProductionLine(data)
+      // }
+
+    } catch (error) {
+      console.error(error);
+      alert('error');
+    }
+  }
+  const getProductionLine = async () =>{
+    
+    try {
+      const response = await fetch(`http://localhost:4000/api/order-production/production-line`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const data = await response.json();
+      console.log('getProductionLine ->', data);
+
+      if (data.length > 0) {
+        setDataProductionLine(data)
+      }
+
+    } catch (error) {
+      console.error(error);
+      alert('error');
+    }
+
+  }
+  const getProductLote = async () =>{
+    
+    try {
+      const response = await fetch(`http://localhost:4000/api/order-production/product-lot`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const data = await response.json();
+      console.log('getProductLote ->', data);
+
+      if (data.length > 0) {
+        setDataProductLote(data)
+      }
+
+    } catch (error) {
+      console.error(error);
+      alert('error');
+    }
+
+  }
+
+  useEffect(()=>{
+    getProductionLine()
+    getProductLote()
+    getGoogle()
+  },[])
 
   return (
     <Paper sx={{ py: 6, px: { xs: 5, sm: 7.5 } }}>
       <Box gridColumn={{ xs: 'span 12', lg: 'span 8' }} order={{ xs: 2, '2xl': 2 }}>
         <Button
-          onClick={()=> setIsEnable(!isEnable)}
+          onClick={() => setIsEnable(!isEnable)}
           sx={{ fontWeight: 'fontWeightRegular' }}
         >
-          Nova OP
+          {
+            isEnable ? 'Esconder' : 'Nova OP'
+          }
         </Button>
         <OrderProduction />
       </Box>
@@ -265,80 +345,72 @@ const App = (): ReactElement => {
         isEnable
           ?
           <Stack justifyContent="center" gap={5}>
-            <Typography variant="h3" textAlign="center" color="text.secondary">
+            <Typography variant="h3" textAlign="left" color="text.secondary">
               Registro de Ordem de Produção
             </Typography>
 
-            {/* Combo de Lote Produto */}
-            <TextField
-              select
+            {/* <TextField
               name="codigo"
-              value={form.codigoOrdemProducao}
-              onChange={handleChange}
-              variant="filled"
-              label="Código Combo"
-            >
-              {ordens.map((ordem) => (
-                <MenuItem key={ordem.idOrdemProducao} value={ordem.idOrdemProducao}>
-                  {ordem.codigoOrdemProducao}
-                </MenuItem>
-              ))}
-            </TextField>
-            {/* Combo de Linha Produção */}
-
-            <TextField
-              name="codigo"
-              value={form.codigoOrdemProducao}
+              // value={form.codigoOrdemProducao}
               onChange={handleChange}
               variant="filled"
               label="Código Text"
               type="text"
-            />
+              sx={{ fontWeight: 'fontWeightRegular', width: '30%' }}
+            /> */}
             <TextField
+              select
               name="idLoteProduto"
               value={form.idLoteProduto}
               onChange={handleChange}
               variant="filled"
+              sx={{ fontWeight: 'fontWeightRegular', width: '30%' }}
               label="Lote Produto"
-              type="number"
-            />
+            >
+              {dataProductLote.map((item: any) => (
+                <MenuItem key={item.idLoteProduto} value={item.idLoteProduto}>
+                  {item.codigoLoteProduto}
+                </MenuItem>
+              ))}
+            </TextField>
             <TextField
+              select
               name="idLinhaProducao"
               value={form.idLinhaProducao}
               onChange={handleChange}
               variant="filled"
+              sx={{ fontWeight: 'fontWeightRegular', width: '30%' }}
               label="Linha Produção"
-              type="number"
-            />
-            <TextField
-              name="idResponsavel"
-              value={form.idResponsavel}
-              onChange={handleChange}
-              variant="filled"
-              label="ID Responsável"
-              type="number"
-            />
+            >
+              {dataProductionLine.map((item: any) => (
+                <MenuItem key={item.codigo} value={item.codigo}>
+                  {item.nome}
+                </MenuItem>
+              ))}
+            </TextField>
             <TextField
               name="quantidadeProduzir"
-              value={form.quantidadeProduzir}
+              // value={form.quantidadeProduzir}
               onChange={handleChange}
               variant="filled"
               label="Quantidade Produzir"
               type="number"
+              sx={{ fontWeight: 'fontWeightRegular', width: '30%' }}
             />
 
             <TextField
               name="data Inicio"
-              value={form.dataHoraInicio}
+              // value={form.dataHoraInicio}
               onChange={handleChange}
               variant="filled"
               label="Data Inicio"
               type="date"
+              sx={{ fontWeight: 'fontWeightRegular', width: '30%' }}
             />
 
             <Button
               onClick={handleSubmit}
-              sx={{ fontWeight: 'fontWeightRegular' }}
+              sx={{ fontWeight: 'fontWeightRegular', width: '30%' }}
             >
               Cadastrar
             </Button>
