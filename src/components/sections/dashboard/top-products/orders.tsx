@@ -138,7 +138,7 @@ const ProductDeviations = ({ productItem }: { productItem: any }): ReactElement 
                     fontSize={30}
                     style={{ cursor: 'pointer' }}
                     onClick={() => getData(productItem.idOrdemProducao)}
-                    icon="el:eye-open" color="text.success" />
+                    icon="mdi:pen" color="text.success" />
             </TableCell>
         </TableRow>
     );

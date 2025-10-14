@@ -7,30 +7,49 @@ import {
   Divider,
   TextField,
   // IconButton,
+  Modal,
+  Table,
+  TableRow,
+  TableBody,
+  TableCell,
+  TableHead,
   Typography,
-  MenuItem
+  TableContainer,
+  MenuItem,
+  Chip
   // InputAdornment,
 } from '@mui/material';
 // import IconifyIcon from 'components/base/IconifyIcon';
 import { useState, ReactElement, useEffect } from 'react';
-import OrderProduction from 'components/sections/dashboard/top-products/orderProduction';
+// import OrderProduction from 'components/sections/dashboard/top-products/orderProduction';
+import SimpleBar from 'simplebar-react';
+import IconifyIcon from 'components/base/IconifyIcon';
 
 const App = (): ReactElement => {
-  // const navigate = useNavigate();
+
   const [form, setForm] = useState({
     codigo: "OP-TESTE-010",
     idLoteProduto: 1,
     idLinhaProducao: 1,
     quantidadeProduzir: 5,
-    idResponsavel: 1,
     dataHoraInicio: "2025-09-24"
   });
 
   const [isEnable, setIsEnable] = useState(false)
+  const [isEnableRegister, setIsEnableRegister] = useState(false)
   const [dataProductionLine, setDataProductionLine] = useState([])
   const [dataProductLote, setDataProductLote] = useState([])
   const [tokenGoogle, setTokenGoogle] = useState('')
   const authToken = localStorage.getItem('authToken')
+  const [productTableRows, setProductTableRows] = useState<Array<object>>([])
+  const [dataModal, setDataModal] = useState<any>([])
+  const [dataCosumer, setDataConsumer] = useState<any>([])
+  const handleOpenModalOrder = () => setOpenModalOrder(true);
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModalOrder = () => setOpenModalOrder(false);
+  const handleCloseModal = () => setOpenModal(false);
+  const [openModal, setOpenModal] = useState(false);
+  const [openModalOrder, setOpenModalOrder] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({
@@ -40,7 +59,7 @@ const App = (): ReactElement => {
   };
 
   const handleSubmit = async () => {
-    
+
     const config = {
       method: 'POST',
       headers: {
@@ -50,7 +69,7 @@ const App = (): ReactElement => {
       body: JSON.stringify(form),
     }
     console.log("Form:", form, 'config', config);
- 
+
     try {
       const response = await fetch('http://localhost:4000/api/order-production', config);
 
@@ -88,7 +107,7 @@ const App = (): ReactElement => {
 
     } catch (error) {
       console.error(error);
-      alert('error');
+      // alert('error');
     }
 
   }
@@ -111,7 +130,7 @@ const App = (): ReactElement => {
 
     } catch (error) {
       console.error(error);
-      alert('error');
+      // alert('error');
     }
 
   }
@@ -134,33 +153,164 @@ const App = (): ReactElement => {
 
     } catch (error) {
       console.error(error);
-      alert('error');
+      // alert('error');
     }
   }
+
+  const getData = async () => {
+    try {
+      const response = await fetch('http://localhost:4000/api/order-production', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const data = await response.json();
+      console.log('response', data);
+      if (data.length > 0) {
+        setProductTableRows(data)
+      }
+
+    } catch (error) {
+      console.error(error);
+      // alert('error');
+    }
+  };
+
+  const getOrders = async (id: number) => {
+
+    setIsEnable(false)
+
+    try {
+      const response = await fetch(`http://localhost:4000/api/order-production/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const data = await response.json();
+      console.log('getData ->', data);
+      setIsEnableRegister(true)
+      // alert(`
+      //               ##### Lote Produto #####
+      //               -----------------------------------------------
+      //               ID: ${data.loteProduto.idLoteProduto}
+      //               COD LoteProduto: ${data.loteProduto.codigoLoteProduto}
+      //               COD Fábrica: ${data.loteProduto.codigoFabrica}
+      //               DT Produção: ${data.loteProduto.dataProducao}
+
+      //               ##### Produto #####
+      //               -----------------------------------------------
+      //               ID: ${data.loteProduto.produto.idProduto}
+      //               COD Produto: ${data.loteProduto.produto.codigoProduto}
+      //               nomeProduto: ${data.loteProduto.produto.nomeProduto}
+      //               Peso Bruto: ${data.loteProduto.produto.pesoBruto}
+      //               UN. Medida: ${data.loteProduto.produto.unidadeMedida}
+      //               COD Barras: ${data.loteProduto.produto.codigoBarras}
+
+      //               ##### Linha Produção #####
+      //               -----------------------------------------------
+      //               ID: ${data.linhaProducao.idLinhaProducao}
+      //               COD Linha Produção: ${data.linhaProducao.codigoLinhaProducao}
+      //               capacidade Hora: ${data.linhaProducao.capacidadeHora}
+      //               descrição: ${data.linhaProducao.descricao}
+      //               Status: ${data.linhaProducao.status}
+      //               Responsável: ${data.linhaProducao.responsavel.nomeUsuario}
+      //           `)
+      if (data.length > 0) {
+        setDataModal(data)
+      }
+
+    } catch (error) {
+      console.error(error);
+      alert('error');
+    }
+  };
+  const listConsumer = async (idLoteMP: number) => {
+
+    setIsEnableRegister(true)
+    setOpenModal(true)
+
+    try {
+      const response = await fetch(`http://localhost:4000/api/order-production/${idLoteMP}/balances-by-lot-mp`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const data = await response.json();
+      console.log('listConsumer', data);
+      setIsEnableRegister(true)
+      if (data.length > 0) {
+        setDataConsumer(data)
+      }
+
+    } catch (error) {
+      console.error(error);
+      // alert('error');
+    }
+  };
+  const createConsumer = async () => {
+
+    const config = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${tokenGoogle}`
+      },
+      body: JSON.stringify(form),
+    }
+    console.log("Form:", form, 'config', config);
+
+    try {
+      const response = await fetch(`http://localhost:4000/api/16/consumption-item`, config);
+
+      if (!response.ok) {
+        alert('Erro ao cadastrar Consumo')
+        throw new Error('Erro ao cadastrar Consumo');
+      }
+
+      const data = await response.json();
+      console.log('Resposta da API:', data);
+
+      alert('Consumo cadastrado com sucesso!');
+
+    } catch (error) {
+      console.error(error);
+      alert('Erro ao cadastrar Consumo!');
+    }
+  };
 
   useEffect(() => {
     getProductionLine()
     getProductLote()
     getGoogle()
+    getData()
   }, [])
 
   return (
     <Paper sx={{ py: 6, px: { xs: 5, sm: 7.5 } }}>
       <Box gridColumn={{ xs: 'span 12', lg: 'span 8' }} order={{ xs: 2, '2xl': 2 }}>
-        <Button
-          onClick={() => setIsEnable(!isEnable)}
-          sx={{ fontWeight: 'fontWeightRegular' }}
-        >
-          {
-            isEnable ? 'Esconder' : 'Nova OP'
-          }
-        </Button>
-        <OrderProduction />
-      </Box>
-      {
-        isEnable
-          ?
-          <Stack justifyContent="center" gap={5}>
+        {/* ------------------ MODAL ORDER ------------------ */}
+        <Modal open={openModalOrder} onClose={handleOpenModalOrder}>
+          <Box
+            sx={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: '60%',
+              height: '80%',
+              bgcolor: 'background.paper',
+              borderRadius: 2,
+              boxShadow: 24,
+              p: 4,
+            }}
+          >
+            <Stack justifyContent="center" gap={5}>
             <Typography variant="h3" textAlign="left" color="text.secondary">
               Registro de Ordem de Produção
             </Typography>
@@ -219,9 +369,194 @@ const App = (): ReactElement => {
             </Button>
             <Divider />
           </Stack>
-          :
-          <></>
-      }
+
+            <Stack direction="row" justifyContent="flex-end" mt={3}>
+              <Button variant="outlined" color="error" onClick={handleCloseModalOrder}>
+                Fechar
+              </Button>
+            </Stack>
+          </Box>
+        </Modal>
+        {/* ------------------ MODAL ORDER ------------------ */}
+
+        {/* ------------------ MODAL CONSUMO ------------------ */}
+        <Modal open={openModal} onClose={handleCloseModal}>
+          <Box
+            sx={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: '60%',
+              height: '60%',
+              bgcolor: 'background.paper',
+              borderRadius: 2,
+              boxShadow: 24,
+              p: 4,
+            }}
+          >
+            <Stack justifyContent="center" gap={5}>
+              <Typography variant="h3" textAlign="left" color="text.secondary">
+                Adicionar Consumo
+              </Typography>
+              <TextField
+                select
+                name="idLoteMp"
+                onChange={handleChange}
+                variant="filled"
+                sx={{ fontWeight: 'fontWeightRegular', width: '50%' }}
+                label="Lote MP"
+              >
+                {dataCosumer.map((item: any) => (
+                  <MenuItem key={item.idLoteMp} value={item.idLoteMp}>
+                    Saldo: {item.saldoKg} - Nome: {item.codigoMp}
+                  </MenuItem>
+                ))}
+              </TextField>
+              <TextField
+                name="quantidade"
+                onChange={handleChange}
+                variant="filled"
+                label="Quantidade"
+                type="number"
+                sx={{ fontWeight: 'fontWeightRegular', width: '30%' }}
+              />
+
+              <Button
+                onClick={createConsumer}
+                sx={{ fontWeight: 'fontWeightRegular', width: '30%' }}
+              >
+                Adicionar Consumo
+              </Button>
+              <Divider />
+            </Stack>
+
+            <Stack direction="row" justifyContent="flex-end" mt={3}>
+              <Button variant="outlined" color="error" onClick={handleCloseModal}>
+                Fechar
+              </Button>
+            </Stack>
+          </Box>
+        </Modal>
+        {/* ------------------ MODAL CONSUMO ------------------ */}
+
+        <Button
+          onClick={() => setOpenModalOrder(true)}
+          sx={{ fontWeight: 'fontWeightRegular' }}
+        >
+         Nova OP
+        </Button>
+        <Paper sx={{ p: { xs: 4, sm: 8 }, height: 1 }}>
+          <Typography variant="h4" color="common.white" mb={8}>
+            Listagem de Ordens de Produção
+          </Typography>
+          <TableContainer component={SimpleBar}>
+            <Table sx={{ minWidth: 600 }}>
+              <TableHead>
+                <TableRow>
+                  <TableCell align="left">ID</TableCell>
+                  <TableCell align="left">código Produto</TableCell>
+                  <TableCell align="left">código Ordem Producao</TableCell>
+                  <TableCell align="left">código Lote Produto</TableCell>
+                  <TableCell align="center">código Linha Produção</TableCell>
+                  <TableCell align="center">QTD. Produzida</TableCell>
+                  <TableCell align="center">Data Hora</TableCell>
+                  <TableCell align="center">Visualizar/Consumo</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {productTableRows.map((productItem: any) => (
+                  <TableRow>
+                    <TableCell
+                      align="left"
+                      component="th"
+                      variant="head"
+                      scope="row"
+                      sx={{
+                        color: 'common.white',
+                        fontSize: 'body1.fontSize',
+                      }}
+                    >
+                      {productItem.idOrdemProducao}
+                    </TableCell>
+                    <TableCell
+                      align="left"
+                      component="th"
+                      variant="head"
+                      scope="row"
+                      sx={{
+                        color: 'common.white',
+                        fontSize: 'body1.fontSize',
+                      }}
+                    >
+                      {productItem.codigoProduto}
+                    </TableCell>
+                    <TableCell
+                      align="left"
+                      component="th"
+                      variant="head"
+                      scope="row"
+                      sx={{
+                        color: 'common.white',
+                        fontSize: 'body1.fontSize',
+                      }}
+                    >
+                      {productItem.codigoOrdemProducao}
+                    </TableCell>
+                    <TableCell
+                      align="left"
+                      component="th"
+                      variant="head"
+                      scope="row"
+                      sx={{
+                        color: 'common.white',
+                        fontSize: 'body1.fontSize',
+                      }}
+                    >
+                      {productItem.codigoLoteProduto}
+                    </TableCell>
+                    <TableCell
+                      align="center"
+                      component="th"
+                      variant="head"
+                      scope="row"
+                      sx={{
+                        color: 'common.white',
+                        fontSize: 'body1.fontSize',
+                      }}
+                    >
+                      {productItem.codigoLinhaProducao}
+                    </TableCell>
+                    <TableCell align="center">
+                      <Chip
+                        label={`${productItem.quantidadeProduzir}`}
+                        color='warning'
+                        variant="outlined"
+                        size="medium"
+                      />
+                    </TableCell>
+                    <TableCell align="center">
+                      <Chip
+                        label={`${productItem.dataHoraInicio}`}
+                        color='primary'
+                        variant="outlined"
+                        size="medium"
+                      />
+                    </TableCell>
+                    <TableCell align="center">
+                      <IconifyIcon
+                        fontSize={30}
+                        style={{ cursor: 'pointer' }}
+                        onClick={() => listConsumer(productItem.idOrdemProducao)}
+                        icon="mdi:pen" color="text.success" />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Paper>
+      </Box>
     </Paper>
   );
 };
