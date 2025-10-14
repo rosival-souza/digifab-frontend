@@ -57,38 +57,6 @@ const App = (): ReactElement => {
       [e.target.name]: e.target.value,
     });
   };
-
-  const handleSubmit = async () => {
-
-    const config = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${tokenGoogle}`
-      },
-      body: JSON.stringify(form),
-    }
-    console.log("Form:", form, 'config', config);
-
-    try {
-      const response = await fetch('http://localhost:4000/api/order-production', config);
-
-      if (!response.ok) {
-        alert('Erro ao cadastrar produto')
-        throw new Error('Erro ao cadastrar produto');
-      }
-
-      const data = await response.json();
-      console.log('Resposta da API:', data);
-
-      alert('Produto cadastrado com sucesso!');
-
-    } catch (error) {
-      console.error(error);
-      alert('Erro ao cadastrar produto!');
-    }
-  };
-
   const getProductionLine = async () => {
 
     try {
@@ -157,7 +125,7 @@ const App = (): ReactElement => {
     }
   }
 
-  const getData = async () => {
+  const getOrderProduction = async () => {
     try {
       const response = await fetch('http://localhost:4000/api/order-production', {
         method: 'GET',
@@ -253,6 +221,36 @@ const App = (): ReactElement => {
       // alert('error');
     }
   };
+  const registerOrders = async () => {
+
+    const config = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${tokenGoogle}`
+      },
+      body: JSON.stringify(form),
+    }
+    console.log("Form:", form, 'config', config);
+
+    try {
+      const response = await fetch('http://localhost:4000/api/order-production', config);
+
+      if (!response.ok) {
+        alert('Erro ao cadastrar produto')
+        throw new Error('Erro ao cadastrar produto');
+      }
+
+      const data = await response.json();
+      console.log('Resposta da API:', data);
+
+      alert('Produto cadastrado com sucesso!');
+
+    } catch (error) {
+      console.error(error);
+      alert('Erro ao cadastrar produto!');
+    }
+  };
   const createConsumer = async () => {
 
     const config = {
@@ -288,7 +286,7 @@ const App = (): ReactElement => {
     getProductionLine()
     getProductLote()
     getGoogle()
-    getData()
+    getOrderProduction()
   }, [])
 
   return (
@@ -362,7 +360,7 @@ const App = (): ReactElement => {
             />
 
             <Button
-              onClick={handleSubmit}
+              onClick={registerOrders}
               sx={{ fontWeight: 'fontWeightRegular', width: '30%' }}
             >
               Cadastrar
