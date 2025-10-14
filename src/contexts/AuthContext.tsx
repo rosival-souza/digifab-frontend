@@ -25,9 +25,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   // Inicializa estado a partir do localStorage
   useEffect(() => {
     const storedUser = localStorage.getItem(STORAGE_KEYS.user);
-    const storedToken = localStorage.getItem(STORAGE_KEYS.token);
+    const storedToken: any = localStorage.getItem(STORAGE_KEYS.token);
     if (storedUser) setUser(storedUser);
     if (storedToken) setToken(storedToken);
+   
   }, []);
 
   const login = (username: string, tokenParam?: string) => {

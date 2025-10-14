@@ -18,18 +18,19 @@ import OrderProduction from 'components/sections/dashboard/top-products/orderPro
 const App = (): ReactElement => {
   // const navigate = useNavigate();
   const [form, setForm] = useState({
-    idOrdemProducao: 5,
-    codigoOrdemProducao: "OP-TESTE-010",
+    codigo: "OP-TESTE-010",
     idLoteProduto: 1,
     idLinhaProducao: 1,
-    idResponsavel: 4,
     quantidadeProduzir: 5,
+    idResponsavel: 1,
     dataHoraInicio: "2025-09-24"
   });
 
   const [isEnable, setIsEnable] = useState(false)
   const [dataProductionLine, setDataProductionLine] = useState([])
   const [dataProductLote, setDataProductLote] = useState([])
+  const [tokenGoogle, setTokenGoogle] = useState('')
+  const authToken = localStorage.getItem('authToken')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({
@@ -39,30 +40,22 @@ const App = (): ReactElement => {
   };
 
   const handleSubmit = async () => {
-
-    console.log(form, localStorage.getItem('accessTokenUser'))
-
-    // idOrdemProducao: 5,
-    // codigoOrdemProducao: "OP-TESTE-010",
-    // idLoteProduto: 1,
-    // idLinhaProducao: 1,
-    // idResponsavel: 4,
-    // quantidadeProduzir: 5,
-    // dataHoraInicio: "2025-09-24"
-  
-    console.log("Form:", form);
-
+    
+    const config = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${tokenGoogle}`
+      },
+      body: JSON.stringify(form),
+    }
+    console.log("Form:", form, 'config', config);
+ 
     try {
-      const response = await fetch('http://localhost:4000/api/order-production', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer' 
-        },
-        body: JSON.stringify(form),
-      });
+      const response = await fetch('http://localhost:4000/api/order-production', config);
 
       if (!response.ok) {
+        alert('Erro ao cadastrar produto')
         throw new Error('Erro ao cadastrar produto');
       }
 
@@ -77,8 +70,8 @@ const App = (): ReactElement => {
     }
   };
 
-  const getProductionLine = async () =>{
-    
+  const getProductionLine = async () => {
+
     try {
       const response = await fetch(`http://localhost:4000/api/order-production/production-line`, {
         method: 'GET',
@@ -88,7 +81,6 @@ const App = (): ReactElement => {
       });
 
       const data = await response.json();
-      console.log('getProductionLine ->', data);
 
       if (data.length > 0) {
         setDataProductionLine(data)
@@ -100,8 +92,8 @@ const App = (): ReactElement => {
     }
 
   }
-  const getProductLote = async () =>{
-    
+  const getProductLote = async () => {
+
     try {
       const response = await fetch(`http://localhost:4000/api/order-production/product-lot`, {
         method: 'GET',
@@ -123,24 +115,22 @@ const App = (): ReactElement => {
     }
 
   }
-  const getGoogle = async () =>{
-      try {
+  const getGoogle = async () => {
+
+    try {
       const response = await fetch(`http://localhost:4000/auth/google`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          idToken: localStorage.getItem('accessTokenUser')
+          idToken: authToken
         }),
       });
 
       const data = await response.json();
       console.log('getGoogle ->', data);
-
-      // if (data.length > 0) {
-      //   setDataProductionLine(data)
-      // }
+      setTokenGoogle(data.token)
 
     } catch (error) {
       console.error(error);
@@ -148,11 +138,11 @@ const App = (): ReactElement => {
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     getProductionLine()
     getProductLote()
     getGoogle()
-  },[])
+  }, [])
 
   return (
     <Paper sx={{ py: 6, px: { xs: 5, sm: 7.5 } }}>
@@ -176,8 +166,8 @@ const App = (): ReactElement => {
             </Typography>
             <TextField
               select
-              name="codigoOrdemProducao"
-              value={form.codigoOrdemProducao}
+              name="codigo"
+              value={form.codigo}
               onChange={handleChange}
               variant="filled"
               sx={{ fontWeight: 'fontWeightRegular', width: '30%' }}

@@ -167,8 +167,6 @@ const Login = (): ReactElement => {
                   if (credentialResponse.credential) {
                     const userData: any = jwtDecode(credentialResponse.credential);
                     console.log("Google user ->", userData);
-                    console.log("accessTokenUser ->", localStorage.getItem('accessTokenUser'));
-                    console.log("authToken ->", localStorage.getItem('authToken'));
                     localStorage.setItem('profile', userData.picture)
                     login(userData.email, credentialResponse.credential);
                   }
