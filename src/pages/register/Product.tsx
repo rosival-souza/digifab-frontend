@@ -50,6 +50,7 @@ const App = (): ReactElement => {
   const handleCloseModal = () => setOpenModal(false);
   const [openModal, setOpenModal] = useState(false);
   const [openModalOrder, setOpenModalOrder] = useState(false);
+  const [idOrderProduction, setIdOrderProduction] = useState(0);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({
@@ -96,7 +97,6 @@ const App = (): ReactElement => {
       });
 
       const data = await response.json();
-      console.log('getProductLote ->', data);
 
       if (data.length > 0) {
         setDataProductLote(data)
@@ -122,7 +122,6 @@ const App = (): ReactElement => {
       });
 
       const data = await response.json();
-      console.log('getGoogle ->', data);
       setTokenGoogle(data.token)
 
     } catch (error) {
@@ -141,7 +140,7 @@ const App = (): ReactElement => {
       });
 
       const data = await response.json();
-      console.log('response', data);
+
       if (data.length > 0) {
         setProductTableRows(data)
       }
@@ -151,58 +150,10 @@ const App = (): ReactElement => {
       // alert('error');
     }
   };
-
-  const getOrders = async (id: number) => {
-
-    try {
-      const response = await fetch(`http://localhost:4000/api/order-production/${id}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      const data = await response.json();
-      console.log('getData ->', data);
-     
-      // alert(`
-      //               ##### Lote Produto #####
-      //               -----------------------------------------------
-      //               ID: ${data.loteProduto.idLoteProduto}
-      //               COD LoteProduto: ${data.loteProduto.codigoLoteProduto}
-      //               COD Fábrica: ${data.loteProduto.codigoFabrica}
-      //               DT Produção: ${data.loteProduto.dataProducao}
-
-      //               ##### Produto #####
-      //               -----------------------------------------------
-      //               ID: ${data.loteProduto.produto.idProduto}
-      //               COD Produto: ${data.loteProduto.produto.codigoProduto}
-      //               nomeProduto: ${data.loteProduto.produto.nomeProduto}
-      //               Peso Bruto: ${data.loteProduto.produto.pesoBruto}
-      //               UN. Medida: ${data.loteProduto.produto.unidadeMedida}
-      //               COD Barras: ${data.loteProduto.produto.codigoBarras}
-
-      //               ##### Linha Produção #####
-      //               -----------------------------------------------
-      //               ID: ${data.linhaProducao.idLinhaProducao}
-      //               COD Linha Produção: ${data.linhaProducao.codigoLinhaProducao}
-      //               capacidade Hora: ${data.linhaProducao.capacidadeHora}
-      //               descrição: ${data.linhaProducao.descricao}
-      //               Status: ${data.linhaProducao.status}
-      //               Responsável: ${data.linhaProducao.responsavel.nomeUsuario}
-      //           `)
-      if (data.length > 0) {
-        setDataModal(data)
-      }
-
-    } catch (error) {
-      console.error(error);
-      alert('error');
-    }
-  };
   const listConsumer = async (idLoteMP: number) => {
 
     setOpenModal(true)
+    setIdOrderProduction(idLoteMP)
 
     try {
       const response = await fetch(`http://localhost:4000/api/order-production/${idLoteMP}/balances-by-lot-mp`, {
@@ -213,7 +164,6 @@ const App = (): ReactElement => {
       });
 
       const data = await response.json();
-      console.log('listConsumer', data);
       
       if (data.length > 0) {
         setDataConsumer(data)
@@ -234,24 +184,22 @@ const App = (): ReactElement => {
       },
       body: JSON.stringify(form),
     }
-    // console.log("Form:", form, 'config', config);
 
     try {
       const response = await fetch('http://localhost:4000/api/order-production', config);
 
       if (!response.ok) {
-        alert('Erro ao cadastrar produto')
-        throw new Error('Erro ao cadastrar produto');
+        alert('Erro ao cadastrar Ordem de Produção')
+        throw new Error('Erro ao cadastrar Ordem de Produção');
       }
 
       const data = await response.json();
-      console.log('Resposta da API:', data);
 
-      alert('Produto cadastrado com sucesso!');
+      alert('Ordem de Produção cadastrado com sucesso!');
 
     } catch (error) {
       console.error(error);
-      alert('Erro ao cadastrar produto!');
+      alert('Erro ao cadastrar Ordem de Produção!');
     }
   };
   const createConsumer = async () => {
@@ -264,10 +212,9 @@ const App = (): ReactElement => {
       },
       body: JSON.stringify(formConsumer),
     }
-    console.log("Form createConsumer:", formConsumer, 'config createConsumer', config);
 
     try {
-      const response = await fetch(`http://localhost:4000/api/order-production/48/consumption-item`, config);
+      const response = await fetch(`http://localhost:4000/api/order-production/${idOrderProduction}/consumption-item`, config);
 
       if (!response.ok) {
         alert('Erro ao cadastrar Consumo')
@@ -275,7 +222,7 @@ const App = (): ReactElement => {
       }
 
       const data = await response.json();
-      console.log('Resposta da API:', data);
+      console.log('createConsumer:', data);
 
       alert('Consumo cadastrado com sucesso!');
 
@@ -398,7 +345,7 @@ const App = (): ReactElement => {
           >
             <Stack justifyContent="center" gap={5}>
               <Typography variant="h3" textAlign="left" color="text.secondary">
-                Adicionar Consumo
+                [{idOrderProduction}] - Adicionar Consumo 
               </Typography>
               <TextField
                 select
