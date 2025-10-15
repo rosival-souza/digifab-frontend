@@ -19,9 +19,7 @@ import {
   Chip
   // InputAdornment,
 } from '@mui/material';
-// import IconifyIcon from 'components/base/IconifyIcon';
 import { useState, ReactElement, useEffect } from 'react';
-// import OrderProduction from 'components/sections/dashboard/top-products/orderProduction';
 import SimpleBar from 'simplebar-react';
 import IconifyIcon from 'components/base/IconifyIcon';
 
@@ -34,9 +32,11 @@ const App = (): ReactElement => {
     quantidadeProduzir: 5,
     dataHoraInicio: "2025-09-24"
   });
-
-  const [isEnable, setIsEnable] = useState(false)
-  const [isEnableRegister, setIsEnableRegister] = useState(false)
+  const [formConsumer, setFormConsumer] = useState({
+    idLoteMp: 1,
+	  quantidade: 2
+  });
+ 
   const [dataProductionLine, setDataProductionLine] = useState([])
   const [dataProductLote, setDataProductLote] = useState([])
   const [tokenGoogle, setTokenGoogle] = useState('')
@@ -55,6 +55,12 @@ const App = (): ReactElement => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
+    });
+  };
+  const handleChangeConsumer = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormConsumer({
+      ...formConsumer,
+      [e.target.name]: Number(e.target.value),
     });
   };
   const getProductionLine = async () => {
@@ -148,8 +154,6 @@ const App = (): ReactElement => {
 
   const getOrders = async (id: number) => {
 
-    setIsEnable(false)
-
     try {
       const response = await fetch(`http://localhost:4000/api/order-production/${id}`, {
         method: 'GET',
@@ -160,7 +164,7 @@ const App = (): ReactElement => {
 
       const data = await response.json();
       console.log('getData ->', data);
-      setIsEnableRegister(true)
+     
       // alert(`
       //               ##### Lote Produto #####
       //               -----------------------------------------------
@@ -198,7 +202,6 @@ const App = (): ReactElement => {
   };
   const listConsumer = async (idLoteMP: number) => {
 
-    setIsEnableRegister(true)
     setOpenModal(true)
 
     try {
@@ -211,7 +214,7 @@ const App = (): ReactElement => {
 
       const data = await response.json();
       console.log('listConsumer', data);
-      setIsEnableRegister(true)
+      
       if (data.length > 0) {
         setDataConsumer(data)
       }
@@ -231,7 +234,7 @@ const App = (): ReactElement => {
       },
       body: JSON.stringify(form),
     }
-    console.log("Form:", form, 'config', config);
+    // console.log("Form:", form, 'config', config);
 
     try {
       const response = await fetch('http://localhost:4000/api/order-production', config);
@@ -259,12 +262,12 @@ const App = (): ReactElement => {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${tokenGoogle}`
       },
-      body: JSON.stringify(form),
+      body: JSON.stringify(formConsumer),
     }
-    console.log("Form:", form, 'config', config);
+    console.log("Form createConsumer:", formConsumer, 'config createConsumer', config);
 
     try {
-      const response = await fetch(`http://localhost:4000/api/16/consumption-item`, config);
+      const response = await fetch(`http://localhost:4000/api/order-production/48/consumption-item`, config);
 
       if (!response.ok) {
         alert('Erro ao cadastrar Consumo')
@@ -336,8 +339,8 @@ const App = (): ReactElement => {
               label="Linha Produção"
             >
               {dataProductionLine.map((item: any) => (
-                <MenuItem key={item.codigo} value={item.codigo}>
-                  {item.codigo} - {item.nome}
+                <MenuItem key={item.idLinhaProducao} value={item.idLinhaProducao}>
+                  {item.idLinhaProducao} - {item.nome}
                 </MenuItem>
               ))}
             </TextField>
@@ -400,20 +403,20 @@ const App = (): ReactElement => {
               <TextField
                 select
                 name="idLoteMp"
-                onChange={handleChange}
+                onChange={handleChangeConsumer}
                 variant="filled"
                 sx={{ fontWeight: 'fontWeightRegular', width: '50%' }}
                 label="Lote MP"
               >
                 {dataCosumer.map((item: any) => (
                   <MenuItem key={item.idLoteMp} value={item.idLoteMp}>
-                    Saldo: {item.saldoKg} - Nome: {item.codigoMp}
+                    ID: {item.idLoteMp} - Saldo: {item.saldoKg} - Nome: {item.codigoMp}
                   </MenuItem>
                 ))}
               </TextField>
               <TextField
                 name="quantidade"
-                onChange={handleChange}
+                onChange={handleChangeConsumer}
                 variant="filled"
                 label="Quantidade"
                 type="number"
