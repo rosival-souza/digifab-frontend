@@ -23,7 +23,7 @@ import { ReactElement, useEffect, useState } from 'react';
 const App = (): ReactElement => {
 
   const [data, setData] = useState([])
-  const [dataTrackability, setDataTrackability] = useState<any>({})
+  const [dataTrackability, setDataTrackability] = useState<Array<object>>([])
   const [codigoLoteProduto, setCodigoLoteProduto] = useState<string>('SELECIONE UM LOTE DE PRODUTO')
 
   const getData = async () => {
@@ -63,7 +63,7 @@ const App = (): ReactElement => {
       console.log('getTrackability ->', data);
 
       if (data.length > 0) {
-        setDataTrackability(data[0])
+        setDataTrackability(data)
       }
 
     } catch (error) {
@@ -94,7 +94,7 @@ const App = (): ReactElement => {
             variant="filled"
           >
             <MenuItem value="SELECIONE UM LOTE DE PRODUTO">
-            SELECIONE UM LOTE DE PRODUTO
+              SELECIONE UM LOTE DE PRODUTO
             </MenuItem>
             {data.map((item: any) => (
               <MenuItem key={item.idLoteProduto} value={item.codigoLoteProduto}>
@@ -120,7 +120,8 @@ const App = (): ReactElement => {
           Rastreamento
         </Typography>
         {
-          "codigoProduto" in dataTrackability &&
+          dataTrackability.length > 0 &&
+
           <TableContainer component={SimpleBar}>
             <Table sx={{ minWidth: 600 }}>
               <TableHead>
@@ -136,106 +137,107 @@ const App = (): ReactElement => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                <TableRow>
-                  <TableCell
-                    align="left"
-                    component="th"
-                    variant="head"
-                    scope="row"
-                    sx={{
-                      color: 'common.white',
-                      fontSize: 'body1.fontSize',
-                    }}
-                  >
-                    {dataTrackability.codigoProduto}
-                  </TableCell>
-                  <TableCell
-                    align="left"
-                    component="th"
-                    variant="head"
-                    scope="row"
-                    sx={{
-                      color: 'common.white',
-                      fontSize: 'body1.fontSize',
-                    }}
-                  >
-                    {dataTrackability.nomeProduto}
-                  </TableCell>
-                  <TableCell
-                    align="left"
-                    component="th"
-                    variant="head"
-                    scope="row"
-                    sx={{
-                      color: 'common.white',
-                      fontSize: 'body1.fontSize',
-                    }}
-                  >
-                    {dataTrackability.loteProduto}
-                  </TableCell>
-                  <TableCell
-                    align="left"
-                    component="th"
-                    variant="head"
-                    scope="row"
-                    sx={{
-                      color: 'common.white',
-                      fontSize: 'body1.fontSize',
-                    }}
-                  >
-                    {dataTrackability.codigoOp}
-                  </TableCell>
-                  <TableCell
-                    align="center"
-                    component="th"
-                    variant="head"
-                    scope="row"
-                    sx={{
-                      color: 'common.white',
-                      fontSize: 'body1.fontSize',
-                    }}
-                  >
-                    {dataTrackability.responsavelOp}
-                  </TableCell>
-                  <TableCell
-                    align="center"
-                    component="th"
-                    variant="head"
-                    scope="row"
-                    sx={{
-                      color: 'common.white',
-                      fontSize: 'body1.fontSize',
-                    }}
-                  >
-                    {dataTrackability.nomeMp}
-                  </TableCell>
-                  <TableCell
-                    align="center"
-                    component="th"
-                    variant="head"
-                    scope="row"
-                    sx={{
-                      color: 'common.white',
-                      fontSize: 'body1.fontSize',
-                    }}
-                  >
-                    {dataTrackability.inicioOp}
-                  </TableCell>
+                {dataTrackability.map((item: any) => (
+                  <TableRow>
+                    <TableCell
+                      align="left"
+                      component="th"
+                      variant="head"
+                      scope="row"
+                      sx={{
+                        color: 'common.white',
+                        fontSize: 'body1.fontSize',
+                      }}
+                    >
+                      {item.codigoProduto}
+                    </TableCell>
+                    <TableCell
+                      align="left"
+                      component="th"
+                      variant="head"
+                      scope="row"
+                      sx={{
+                        color: 'common.white',
+                        fontSize: 'body1.fontSize',
+                      }}
+                    >
+                      {item.nomeProduto}
+                    </TableCell>
+                    <TableCell
+                      align="left"
+                      component="th"
+                      variant="head"
+                      scope="row"
+                      sx={{
+                        color: 'common.white',
+                        fontSize: 'body1.fontSize',
+                      }}
+                    >
+                      {item.loteProduto}
+                    </TableCell>
+                    <TableCell
+                      align="left"
+                      component="th"
+                      variant="head"
+                      scope="row"
+                      sx={{
+                        color: 'common.white',
+                        fontSize: 'body1.fontSize',
+                      }}
+                    >
+                      {item.codigoOp}
+                    </TableCell>
+                    <TableCell
+                      align="center"
+                      component="th"
+                      variant="head"
+                      scope="row"
+                      sx={{
+                        color: 'common.white',
+                        fontSize: 'body1.fontSize',
+                      }}
+                    >
+                      {item.responsavelOp}
+                    </TableCell>
+                    <TableCell
+                      align="center"
+                      component="th"
+                      variant="head"
+                      scope="row"
+                      sx={{
+                        color: 'common.white',
+                        fontSize: 'body1.fontSize',
+                      }}
+                    >
+                      {item.nomeMp}
+                    </TableCell>
+                    <TableCell
+                      align="center"
+                      component="th"
+                      variant="head"
+                      scope="row"
+                      sx={{
+                        color: 'common.white',
+                        fontSize: 'body1.fontSize',
+                      }}
+                    >
+                      {item.inicioOp}
+                    </TableCell>
 
-                  <TableCell align="center">
-                    <Chip
-                      label={`${dataTrackability.consumoKg}`}
-                      color='warning'
-                      variant="outlined"
-                      size="medium"
-                    />
-                  </TableCell>
-                </TableRow>
+                    <TableCell align="center">
+                      <Chip
+                        label={`${item.consumoKg}`}
+                        color='warning'
+                        variant="outlined"
+                        size="medium"
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))}
               </TableBody>
             </Table>
           </TableContainer>
         }
-
       </Paper>
     </>
   );
